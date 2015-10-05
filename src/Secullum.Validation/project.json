@@ -1,0 +1,21 @@
+﻿{
+  "version": "0.0.1-*",
+  "description": "Secullum.Validation",
+
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Secullum/Secullum.Validation"
+  },
+
+  "dependencies": { },
+
+  "frameworks": {
+    "dnx451": { },
+
+    "dnxcore50": {
+      "dependencies": {
+        "System.Runtime": "4.0.0-*"
+      }
+    }
+  }
+}
