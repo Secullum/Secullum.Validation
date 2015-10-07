@@ -28,16 +28,40 @@ namespace Secullum.Validation
             return this;
         }
 
+        public Validation<T> HasMaxLength(Expression<Func<T, string>> expression, int maxLength)
+        {
+            ThrowIfNotMemberAccessExpression(expression.Body);
+
+            if (maxLength <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(maxLength));
+            }
+
+            var value = expression.Compile()(target);
+
+            if (value != null && value.Length > maxLength)
+            {
+                AddError((MemberExpression)expression.Body, "O campo {0} deve possuir no máximo {1} caracteres.", maxLength);
+            }
+            
+            return this;
+        }
+
         public IList<ValidationError> ToList()
         {
             return errorList;
         }
 
-        private void AddError(MemberExpression expression, string message)
+        private void AddError(MemberExpression expression, string message, params object[] formatArgs)
         {
             var propertyName = expression.Member.Name;
 
-            errorList.Add(new ValidationError(propertyName, string.Format(message, propertyName)));
+            var formatArgsList = new List<object>();
+
+            formatArgsList.Add(propertyName);
+            formatArgsList.AddRange(formatArgs);
+            
+            errorList.Add(new ValidationError(propertyName, string.Format(message, formatArgsList.ToArray())));
         }
 
         private void ThrowIfNotMemberAccessExpression(Expression expression)
