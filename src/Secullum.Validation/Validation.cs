@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 
@@ -65,7 +66,7 @@ namespace Secullum.Validation
 
         public IList<ValidationError> ToList()
         {
-            return errorList;
+            return new ReadOnlyCollection<ValidationError>(errorList);
         }
 
         private void AddError(MemberExpression expression, string message, params object[] formatArgs)
