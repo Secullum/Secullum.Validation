@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
+using static Secullum.Validation.Localization;
+using static Secullum.Validation.Localization.StringTypes;
 
 namespace Secullum.Validation
 {
@@ -24,7 +26,7 @@ namespace Secullum.Validation
 
             if (string.IsNullOrWhiteSpace(value))
             {
-                AddError((MemberExpression)expression.Body, "O campo {0} é obrigatório.");
+                AddError((MemberExpression)expression.Body, GetString(IsRequiredMessage));
             }
 
             return this;
@@ -43,7 +45,7 @@ namespace Secullum.Validation
 
             if (value != null && value.Length > maxLength)
             {
-                AddError((MemberExpression)expression.Body, "O campo {0} deve possuir no máximo {1} caracteres.", maxLength);
+                AddError((MemberExpression)expression.Body, GetString(HasMaxLengthMessage), maxLength);
             }
             
             return this;
@@ -58,7 +60,7 @@ namespace Secullum.Validation
             
             if (!string.IsNullOrEmpty(value) && !regex.IsMatch(value))
             {
-                AddError((MemberExpression)expression.Body, "Preencha o campo {0} corretamente.");
+                AddError((MemberExpression)expression.Body, GetString(IsEmailMessage));
             }
 
             return this;
@@ -85,7 +87,7 @@ namespace Secullum.Validation
         {
             if (expression.NodeType != ExpressionType.MemberAccess)
             {
-                throw new ArgumentException("Expressão inválida", nameof(expression));
+                throw new ArgumentException(GetString(InvalidExpressionMessage), nameof(expression));
             }
         }
     }
