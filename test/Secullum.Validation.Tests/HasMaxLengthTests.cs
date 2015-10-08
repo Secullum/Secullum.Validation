@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using Xunit;
 
 namespace Secullum.Validation.Tests
 {
-    public class HasMaxLengthTests
+    public class HasMaxLengthTests : BaseTest
     {
         [Theory]
         [InlineData("Fernando", 8)]
@@ -32,6 +33,23 @@ namespace Secullum.Validation.Tests
 
             Assert.Equal(1, errors.Count);
             Assert.Equal("Name", errors[0].Property);
+        }
+
+        [Theory]
+        [InlineData(null, "Name")]
+        [InlineData("Nome", "Nome")]
+        [InlineData("aaa", "aaa")]
+        public void HasMaxLength_GivenPropertyDisplayText_ReturnsCustomizedMessage(string propertyDisplayText, string expectedPropertyDisplayText)
+        {
+            SetCurrentThreadCulture(new CultureInfo("pt-BR"));
+
+            var person = new Person() { Name = "Fernando" };
+
+            var errors = new Validation<Person>(person)
+                .HasMaxLength(x => x.Name, 5, propertyDisplayText)
+                .ToList();
+
+            Assert.Equal($"O campo {expectedPropertyDisplayText} deve possuir no máximo 5 caracteres.", errors[0].Message);
         }
 
         [Fact]

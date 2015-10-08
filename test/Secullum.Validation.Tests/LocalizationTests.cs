@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Secullum.Validation.Tests
 {
-    public class LocalizationTests
+    public class LocalizationTests : BaseTest
     {
         [Fact]
         public void Localization_GivenEnglishCulture_ReturnsEnglishErrorMessage()
@@ -59,17 +59,6 @@ namespace Secullum.Validation.Tests
                 .ToList();
 
             Assert.StartsWith("The field", errors[0].Message);
-        }
-
-        private void SetCurrentThreadCulture(CultureInfo cultureInfo)
-        {
-#if DNX451
-            System.Threading.Thread.CurrentThread.CurrentCulture = cultureInfo;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = cultureInfo;
-#else
-            CultureInfo.CurrentCulture = cultureInfo;
-            CultureInfo.CurrentUICulture = cultureInfo;
-#endif
         }
     }
 }

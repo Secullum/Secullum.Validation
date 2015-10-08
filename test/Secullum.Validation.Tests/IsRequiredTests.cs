@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using Xunit;
 
 namespace Secullum.Validation.Tests
 {
-    public class IsRequiredTests
+    public class IsRequiredTests : BaseTest
     {
         [Fact]
         public void IsRequired_GivenValidField_DontReturnErrors()
@@ -31,6 +32,23 @@ namespace Secullum.Validation.Tests
 
             Assert.Equal(1, errors.Count);
             Assert.Equal("Name", errors[0].Property);
+        }
+
+        [Theory]
+        [InlineData(null, "Name")]
+        [InlineData("Nome", "Nome")]
+        [InlineData("aaa", "aaa")]
+        public void IsRequired_GivenPropertyDisplayText_ReturnsCustomizedMessage(string propertyDisplayText, string expectedPropertyDisplayText)
+        {
+            SetCurrentThreadCulture(new CultureInfo("pt-BR"));
+
+            var person = new Person();
+
+            var errors = new Validation<Person>(person)
+                .IsRequired(x => x.Name, propertyDisplayText)
+                .ToList();
+
+            Assert.Equal($"O campo {expectedPropertyDisplayText} é obrigatório.", errors[0].Message);
         }
 
         [Fact]

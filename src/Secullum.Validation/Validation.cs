@@ -18,7 +18,7 @@ namespace Secullum.Validation
             this.target = target;
         }
 
-        public Validation<T> IsRequired(Expression<Func<T, string>> expression)
+        public Validation<T> IsRequired(Expression<Func<T, string>> expression, string propertyDisplayText = null)
         {
             ThrowIfNotMemberAccessExpression(expression.Body);
 
@@ -26,13 +26,15 @@ namespace Secullum.Validation
 
             if (string.IsNullOrWhiteSpace(value))
             {
-                AddError((MemberExpression)expression.Body, GetString(IsRequiredMessage));
+                propertyDisplayText = propertyDisplayText ?? ((MemberExpression)expression.Body).Member.Name;
+
+                AddError((MemberExpression)expression.Body, propertyDisplayText, GetString(IsRequiredMessage));
             }
 
             return this;
         }
 
-        public Validation<T> HasMaxLength(Expression<Func<T, string>> expression, int maxLength)
+        public Validation<T> HasMaxLength(Expression<Func<T, string>> expression, int maxLength, string propertyDisplayText = null)
         {
             ThrowIfNotMemberAccessExpression(expression.Body);
 
@@ -45,13 +47,13 @@ namespace Secullum.Validation
 
             if (value != null && value.Length > maxLength)
             {
-                AddError((MemberExpression)expression.Body, GetString(HasMaxLengthMessage), maxLength);
+                AddError((MemberExpression)expression.Body, propertyDisplayText, GetString(HasMaxLengthMessage), maxLength);
             }
             
             return this;
         }
 
-        public Validation<T> IsEmail(Expression<Func<T, string>> expression)
+        public Validation<T> IsEmail(Expression<Func<T, string>> expression, string propertyDisplayText = null)
         {
             ThrowIfNotMemberAccessExpression(expression.Body);
 
@@ -60,7 +62,7 @@ namespace Secullum.Validation
             
             if (!string.IsNullOrEmpty(value) && !regex.IsMatch(value))
             {
-                AddError((MemberExpression)expression.Body, GetString(IsEmailMessage));
+                AddError((MemberExpression)expression.Body, propertyDisplayText, GetString(IsEmailMessage));
             }
 
             return this;
@@ -71,13 +73,12 @@ namespace Secullum.Validation
             return new ReadOnlyCollection<ValidationError>(errorList);
         }
 
-        private void AddError(MemberExpression expression, string message, params object[] formatArgs)
+        private void AddError(MemberExpression expression, string propertyDisplayText, string message, params object[] formatArgs)
         {
             var propertyName = expression.Member.Name;
-
             var formatArgsList = new List<object>();
-
-            formatArgsList.Add(propertyName);
+            
+            formatArgsList.Add(propertyDisplayText ?? propertyName);
             formatArgsList.AddRange(formatArgs);
             
             errorList.Add(new ValidationError(propertyName, string.Format(message, formatArgsList.ToArray())));

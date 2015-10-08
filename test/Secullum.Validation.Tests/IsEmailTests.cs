@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using Xunit;
 
 namespace Secullum.Validation.Tests
 {
-    public class IsEmailTests
+    public class IsEmailTests : BaseTest
     {
         [Theory]
         [InlineData(null)]
@@ -36,6 +37,23 @@ namespace Secullum.Validation.Tests
 
             Assert.Equal(1, errors.Count);
             Assert.Equal("Email", errors[0].Property);
+        }
+
+        [Theory]
+        [InlineData(null, "Email")]
+        [InlineData("E-mail", "E-mail")]
+        [InlineData("aaa", "aaa")]
+        public void IsEmail_GivenPropertyDisplayText_ReturnsCustomizedMessage(string propertyDisplayText, string expectedPropertyDisplayText)
+        {
+            SetCurrentThreadCulture(new CultureInfo("pt-BR"));
+
+            var person = new Person() { Email = "fernando" };
+
+            var errors = new Validation<Person>(person)
+                .IsEmail(x => x.Email, propertyDisplayText)
+                .ToList();
+
+            Assert.Equal($"Preencha o campo {expectedPropertyDisplayText} corretamente.", errors[0].Message);
         }
 
         [Fact]
