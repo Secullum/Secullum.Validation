@@ -48,6 +48,7 @@ namespace Secullum.Validation.Tests
                 .IsRequired(x => x.Name, propertyDisplayText)
                 .ToList();
 
+            Assert.Equal("Name", errors[0].Property);
             Assert.Equal($"O campo {expectedPropertyDisplayText} é obrigatório.", errors[0].Message);
         }
 

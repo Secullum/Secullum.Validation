@@ -53,6 +53,7 @@ namespace Secullum.Validation.Tests
                 .IsEmail(x => x.Email, propertyDisplayText)
                 .ToList();
 
+            Assert.Equal("Email", errors[0].Property);
             Assert.Equal($"Preencha o campo {expectedPropertyDisplayText} corretamente.", errors[0].Message);
         }
 

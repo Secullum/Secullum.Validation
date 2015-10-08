@@ -49,6 +49,7 @@ namespace Secullum.Validation.Tests
                 .HasMaxLength(x => x.Name, 5, propertyDisplayText)
                 .ToList();
 
+            Assert.Equal("Name", errors[0].Property);
             Assert.Equal($"O campo {expectedPropertyDisplayText} deve possuir no máximo 5 caracteres.", errors[0].Message);
         }
 
