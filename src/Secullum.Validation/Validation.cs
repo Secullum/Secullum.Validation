@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 
 namespace Secullum.Validation
 {
@@ -44,6 +45,21 @@ namespace Secullum.Validation
                 AddError((MemberExpression)expression.Body, "O campo {0} deve possuir no máximo {1} caracteres.", maxLength);
             }
             
+            return this;
+        }
+
+        public Validation<T> IsEmail(Expression<Func<T, string>> expression)
+        {
+            ThrowIfNotMemberAccessExpression(expression.Body);
+
+            var value = expression.Compile()(target);
+            var regex = new Regex(@"^[a-zA-Z0-9_\.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+$");
+            
+            if (!string.IsNullOrEmpty(value) && !regex.IsMatch(value))
+            {
+                AddError((MemberExpression)expression.Body, "Preencha o campo {0} corretamente.");
+            }
+
             return this;
         }
 
