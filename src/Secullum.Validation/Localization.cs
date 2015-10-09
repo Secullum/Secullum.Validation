@@ -10,6 +10,7 @@ namespace Secullum.Validation
             IsRequiredMessage,
             HasMaxLengthMessage,
             IsEmailMessage,
+            IsUniqueMessage,
             InvalidExpressionMessage
         }
 
@@ -30,6 +31,10 @@ namespace Secullum.Validation
             englishDictionary.Add(StringTypes.IsEmailMessage, "Fill in the {0} correctly.");
             portugueseDictionary.Add(StringTypes.IsEmailMessage, "Preencha o campo {0} corretamente.");
             spanishDictionary.Add(StringTypes.IsEmailMessage, "Complete el campo {0} correctamente.");
+
+            englishDictionary.Add(StringTypes.IsUniqueMessage, "{0} already exists.");
+            portugueseDictionary.Add(StringTypes.IsUniqueMessage, "{0} já existe.");
+            spanishDictionary.Add(StringTypes.IsUniqueMessage, "{0} ya existe.");
 
             englishDictionary.Add(StringTypes.InvalidExpressionMessage, "Invalid expression.");
             portugueseDictionary.Add(StringTypes.InvalidExpressionMessage, "Expressão inválida.");
