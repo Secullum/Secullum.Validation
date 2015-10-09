@@ -128,6 +128,20 @@ namespace Secullum.Validation
             return this;
         }
 
+        public Validation<T> IsCpf(Expression<Func<T, string>> expression)
+        {
+            ThrowIfNotMemberAccessExpression(expression.Body);
+
+            var value = expression.Compile()(target);
+
+            if (!string.IsNullOrEmpty(value) && !ValidationUtils.IsCpf(value))
+            {
+                AddError((MemberExpression)expression.Body, GetString(IsCpfMessage));
+            }
+            
+            return this;
+        }
+        
         public IList<ValidationError> ToList()
         {
             return new ReadOnlyCollection<ValidationError>(errorList);
