@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using Xunit;
 
 namespace Secullum.Validation.Tests
