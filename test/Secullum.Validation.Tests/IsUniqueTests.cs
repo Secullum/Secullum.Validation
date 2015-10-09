@@ -61,25 +61,7 @@ namespace Secullum.Validation.Tests
             Assert.Equal(1, errors.Count);
             Assert.Equal("Name", errors[0].Property);
         }
-
-        [Theory]
-        [InlineData(null, "Name")]
-        [InlineData("Nome", "Nome")]
-        [InlineData("aaa", "aaa")]
-        public void IsRequired_GivenPropertyDisplayText_ReturnsCustomizedMessage(string propertyDisplayText, string expectedPropertyDisplayText)
-        {
-            SetCurrentThreadCulture(new CultureInfo("pt-BR"));
-
-            var person = new Person() { Id = 2, Name = "fernando" };
-
-            var errors = new Validation<Person>(person, context)
-                .IsUnique(x => x.Name, propertyDisplayText)
-                .ToList();
-
-            Assert.Equal("Name", errors[0].Property);
-            Assert.Equal($"{expectedPropertyDisplayText} já existe.", errors[0].Message);
-        }
-
+        
         [Fact]
         public void IsUnique_GivenInvalidExpression_ThrowsException()
         {

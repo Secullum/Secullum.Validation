@@ -15,6 +15,7 @@ namespace Secullum.Validation
     {
         private T target;
         private DbContext dbContext;
+        private IDictionary<MemberInfo, string> displayTextDictionary = new Dictionary<MemberInfo, string>();
         private IList<ValidationError> errorList = new List<ValidationError>();
 
         public Validation(T target) : this(target, null)
@@ -27,7 +28,18 @@ namespace Secullum.Validation
             this.dbContext = dbContext;
         }
 
-        public Validation<T> IsRequired(Expression<Func<T, string>> expression, string propertyDisplayText = null)
+        public Validation<T> HasDisplayText(Expression<Func<T, string>> expression, string displayText)
+        {
+            ThrowIfNotMemberAccessExpression(expression.Body);
+
+            var memberExpression = (MemberExpression)expression.Body;
+
+            displayTextDictionary.Add(memberExpression.Member, displayText);
+
+            return this;
+        }
+
+        public Validation<T> IsRequired(Expression<Func<T, string>> expression)
         {
             ThrowIfNotMemberAccessExpression(expression.Body);
 
@@ -35,15 +47,13 @@ namespace Secullum.Validation
 
             if (string.IsNullOrWhiteSpace(value))
             {
-                propertyDisplayText = propertyDisplayText ?? ((MemberExpression)expression.Body).Member.Name;
-
-                AddError((MemberExpression)expression.Body, propertyDisplayText, GetString(IsRequiredMessage));
+                AddError((MemberExpression)expression.Body, GetString(IsRequiredMessage));
             }
 
             return this;
         }
 
-        public Validation<T> HasMaxLength(Expression<Func<T, string>> expression, int maxLength, string propertyDisplayText = null)
+        public Validation<T> HasMaxLength(Expression<Func<T, string>> expression, int maxLength)
         {
             ThrowIfNotMemberAccessExpression(expression.Body);
 
@@ -56,13 +66,13 @@ namespace Secullum.Validation
 
             if (value != null && value.Length > maxLength)
             {
-                AddError((MemberExpression)expression.Body, propertyDisplayText, GetString(HasMaxLengthMessage), maxLength);
+                AddError((MemberExpression)expression.Body, GetString(HasMaxLengthMessage), maxLength);
             }
             
             return this;
         }
 
-        public Validation<T> IsEmail(Expression<Func<T, string>> expression, string propertyDisplayText = null)
+        public Validation<T> IsEmail(Expression<Func<T, string>> expression)
         {
             ThrowIfNotMemberAccessExpression(expression.Body);
 
@@ -71,13 +81,13 @@ namespace Secullum.Validation
             
             if (!string.IsNullOrEmpty(value) && !regex.IsMatch(value))
             {
-                AddError((MemberExpression)expression.Body, propertyDisplayText, GetString(IsEmailMessage));
+                AddError((MemberExpression)expression.Body, GetString(IsEmailMessage));
             }
 
             return this;
         }
         
-        public Validation<T> IsUnique(Expression<Func<T, string>> expression, string propertyDisplayText = null)
+        public Validation<T> IsUnique(Expression<Func<T, string>> expression)
         {
             ThrowIfNotMemberAccessExpression(expression.Body);
             
@@ -112,7 +122,7 @@ namespace Secullum.Validation
 
             if (dbContext.Set<T>().Any(lambda))
             {
-                AddError((MemberExpression)expression.Body, propertyDisplayText, GetString(IsUniqueMessage));
+                AddError((MemberExpression)expression.Body, GetString(IsUniqueMessage));
             }
             
             return this;
@@ -123,10 +133,13 @@ namespace Secullum.Validation
             return new ReadOnlyCollection<ValidationError>(errorList);
         }
 
-        private void AddError(MemberExpression expression, string propertyDisplayText, string message, params object[] formatArgs)
+        private void AddError(MemberExpression expression, string message, params object[] formatArgs)
         {
             var propertyName = expression.Member.Name;
+            var propertyDisplayText = "";
             var formatArgsList = new List<object>();
+
+            displayTextDictionary.TryGetValue(expression.Member, out propertyDisplayText);
             
             formatArgsList.Add(propertyDisplayText ?? propertyName);
             formatArgsList.AddRange(formatArgs);

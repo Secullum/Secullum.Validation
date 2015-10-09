@@ -4,41 +4,44 @@ using Xunit;
 
 namespace Secullum.Validation.Tests
 {
-    public class IsRequiredTests : BaseTest
+    public class HasDisplayTextTests : BaseTest
     {
         [Fact]
-        public void IsRequired_GivenValidField_DontReturnErrors()
+        public void HasDisplayText_NotGivenDisplayText_UsesPropertyName()
         {
-            var person = new Person() { Name = "Fernando" };
+            SetCurrentThreadCulture(new CultureInfo("pt-BR"));
+
+            var person = new Person();
 
             var errors = new Validation<Person>(person)
                 .IsRequired(x => x.Name)
                 .ToList();
 
-            Assert.Equal(0, errors.Count);
-        }
-
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("        ")]
-        public void IsRequired_GivenEmptyField_ReturnError(string name)
-        {
-            var person = new Person() { Name = name };
-
-            var errors = new Validation<Person>(person)
-                .IsRequired(x => x.Name)
-                .ToList();
-
-            Assert.Equal(1, errors.Count);
             Assert.Equal("Name", errors[0].Property);
+            Assert.Equal($"O campo Name é obrigatório.", errors[0].Message);
         }
-        
+
         [Fact]
-        public void IsRequired_GivenInvalidExpression_ThrowsException()
+        public void HasDisplayText_GivenDisplayText_UsesIt()
+        {
+            SetCurrentThreadCulture(new CultureInfo("pt-BR"));
+
+            var person = new Person();
+
+            var errors = new Validation<Person>(person)
+                .HasDisplayText(x => x.Name, "Nome")
+                .IsRequired(x => x.Name)
+                .ToList();
+
+            Assert.Equal("Name", errors[0].Property);
+            Assert.Equal($"O campo Nome é obrigatório.", errors[0].Message);
+        }
+
+        [Fact]
+        public void HasDisplayText_GivenInvalidExpression_ThrowsException()
         {
             var person = new Person();
-            
+
             Assert.Throws<ArgumentException>("expression", () =>
             {
                 var erros = new Validation<Person>(person)
