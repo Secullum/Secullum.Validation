@@ -141,7 +141,21 @@ namespace Secullum.Validation
             
             return this;
         }
-        
+
+        public Validation<T> IsCnpj(Expression<Func<T, string>> expression)
+        {
+            ThrowIfNotMemberAccessExpression(expression.Body);
+
+            var value = expression.Compile()(target);
+
+            if (!string.IsNullOrEmpty(value) && !ValidationUtils.IsCnpj(value))
+            {
+                AddError((MemberExpression)expression.Body, GetString(IsCnpjMessage));
+            }
+
+            return this;
+        }
+
         public IList<ValidationError> ToList()
         {
             return new ReadOnlyCollection<ValidationError>(errorList);

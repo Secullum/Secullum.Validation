@@ -11,6 +11,7 @@ namespace Secullum.Validation
             HasMaxLengthMessage,
             IsEmailMessage,
             IsCpfMessage,
+            IsCnpjMessage,
             IsUniqueMessage,
             InvalidExpressionMessage
         }
@@ -36,7 +37,11 @@ namespace Secullum.Validation
             englishDictionary.Add(StringTypes.IsCpfMessage, "{0} invalid.");
             portugueseDictionary.Add(StringTypes.IsCpfMessage, "{0} inválido.");
             spanishDictionary.Add(StringTypes.IsCpfMessage, "{0} no válido.");
-            
+
+            englishDictionary.Add(StringTypes.IsCnpjMessage, "{0} invalid.");
+            portugueseDictionary.Add(StringTypes.IsCnpjMessage, "{0} inválido.");
+            spanishDictionary.Add(StringTypes.IsCnpjMessage, "{0} no válido.");
+
             englishDictionary.Add(StringTypes.IsUniqueMessage, "{0} already exists.");
             portugueseDictionary.Add(StringTypes.IsUniqueMessage, "{0} já existe.");
             spanishDictionary.Add(StringTypes.IsUniqueMessage, "{0} ya existe.");
