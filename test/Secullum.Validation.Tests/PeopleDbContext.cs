@@ -18,7 +18,7 @@ namespace Secullum.Validation.Tests
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseInMemoryDatabase(false);
+            optionsBuilder.UseInMemoryDatabase();
         }
     }
 }
