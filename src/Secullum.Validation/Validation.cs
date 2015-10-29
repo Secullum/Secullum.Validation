@@ -100,6 +100,11 @@ namespace Secullum.Validation
             var idValue = idProp.GetValue(target);
             var propValue = expression.Compile()(target);
 
+            if (string.IsNullOrEmpty(propValue))
+            {
+                return this;
+            }
+
             // x.Name == "fernando"
             var equalExpression = Expression.Equal(
                 expression.Body,

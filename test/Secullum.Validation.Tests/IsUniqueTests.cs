@@ -49,6 +49,18 @@ namespace Secullum.Validation.Tests
         }
 
         [Fact]
+        public void IsUnique_GivenEmptyField_DontReturnErrors()
+        {
+            var person = new Person() { Id = 2, Name = "alex" };
+
+            var errors = new Validation<Person>(person, context)
+                .IsUnique(x => x.Email)
+                .ToList();
+
+            Assert.Equal(0, errors.Count);
+        }
+
+        [Fact]
         public void IsUnique_GivenSameNameAndNewId_ReturnError()
         {
             var person = new Person() { Id = 2, Name = "fernando" };
