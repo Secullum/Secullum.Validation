@@ -11,7 +11,7 @@ using static Secullum.Validation.Localization.StringTypes;
 
 namespace Secullum.Validation
 {
-    public class Validation<T> where T : class
+    public class Validation<T> : IValidation<T> where T : class
     {
         private T target;
         private DbContext dbContext;
