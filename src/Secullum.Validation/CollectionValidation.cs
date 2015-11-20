@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.Data.Entity;
-using System.Collections.ObjectModel;
 
 namespace Secullum.Validation
 {
@@ -96,14 +96,9 @@ namespace Secullum.Validation
 
         public IList<IList<ValidationError>> ToList()
         {
-            var listCollection = new List<IList<ValidationError>>();
-
-            foreach (var validation in validationCollection)
-            {
-                listCollection.Add(validation.ToList());
-            }
-
-            return listCollection;
+            return validationCollection
+                .Select(v => v.ToList())
+                .ToList();
         }
     }
 }
