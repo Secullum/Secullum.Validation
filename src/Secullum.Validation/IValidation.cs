@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace Secullum.Validation
 {
-    interface IValidation<T> where T : class
+    public interface IValidation<TTarget, TValidation>
+        where TTarget : class
+        where TValidation : IValidation<TTarget, TValidation>
     {
-        Validation<T> HasDisplayText(Expression<Func<T, string>> expression, string displayText);
-        Validation<T> IsRequired(Expression<Func<T, string>> expression);
-        Validation<T> HasMaxLength(Expression<Func<T, string>> expression, int maxLength);
-        Validation<T> IsEmail(Expression<Func<T, string>> expression);
-        Validation<T> IsUnique(Expression<Func<T, string>> expression);
-        Validation<T> IsCpf(Expression<Func<T, string>> expression);
-        Validation<T> IsCnpj(Expression<Func<T, string>> expression);
+        TValidation HasDisplayText(Expression<Func<TTarget, string>> expression, string displayText);
+        TValidation IsRequired(Expression<Func<TTarget, string>> expression);
+        TValidation HasMaxLength(Expression<Func<TTarget, string>> expression, int maxLength);
+        TValidation IsEmail(Expression<Func<TTarget, string>> expression);
+        TValidation IsUnique(Expression<Func<TTarget, string>> expression);
+        TValidation IsCpf(Expression<Func<TTarget, string>> expression);
+        TValidation IsCnpj(Expression<Func<TTarget, string>> expression);
     }
 }
