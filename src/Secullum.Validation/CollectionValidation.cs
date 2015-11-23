@@ -34,11 +34,61 @@ namespace Secullum.Validation
             return this;
         }
 
+        public CollectionValidation<T> HasDisplayText(Expression<Func<T, int>> expression, string displayText)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.HasDisplayText(expression, displayText);
+            }
+
+            return this;
+        }
+
+        public CollectionValidation<T> IsRequired(Expression<Func<T, string>> expression)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.IsRequired(expression);
+            }
+
+            return this;
+        }
+        
         public CollectionValidation<T> HasMaxLength(Expression<Func<T, string>> expression, int maxLength)
         {
             foreach (var validation in validationCollection)
             {
                 validation.HasMaxLength(expression, maxLength);
+            }
+
+            return this;
+        }
+        
+        public CollectionValidation<T> IsEmail(Expression<Func<T, string>> expression)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.IsEmail(expression);
+            }
+
+            return this;
+        }
+
+        public CollectionValidation<T> IsUnique(Expression<Func<T, string>> expression)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.IsUnique(expression);
+            }
+
+            return this;
+        }
+
+        public CollectionValidation<T> IsUnique(Expression<Func<T, int>> expression)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.IsUnique(expression);
             }
 
             return this;
@@ -63,32 +113,12 @@ namespace Secullum.Validation
 
             return this;
         }
-
-        public CollectionValidation<T> IsEmail(Expression<Func<T, string>> expression)
+        
+        public CollectionValidation<T> IsBetween(Expression<Func<T, int>> expression, int initial, int final)
         {
             foreach (var validation in validationCollection)
             {
-                validation.IsEmail(expression);
-            }
-
-            return this;
-        }
-
-        public CollectionValidation<T> IsRequired(Expression<Func<T, string>> expression)
-        {
-            foreach (var validation in validationCollection)
-            {
-                validation.IsRequired(expression);
-            }
-
-            return this;
-        }
-
-        public CollectionValidation<T> IsUnique(Expression<Func<T, string>> expression)
-        {
-            foreach (var validation in validationCollection)
-            {
-                validation.IsUnique(expression);
+                validation.IsBetween(expression, initial, final);
             }
 
             return this;

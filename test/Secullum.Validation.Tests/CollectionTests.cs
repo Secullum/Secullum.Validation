@@ -25,7 +25,7 @@ namespace Secullum.Validation.Tests
             foreach (var lista in errors)
             {
                 Assert.Equal(0, lista.Count);
-            }            
+            }
         }
 
         [Theory]

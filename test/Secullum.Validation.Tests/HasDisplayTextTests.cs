@@ -37,6 +37,23 @@ namespace Secullum.Validation.Tests
             Assert.Equal($"O campo Nome é obrigatório.", errors[0].Message);
         }
 
+
+        [Fact]
+        public void HasDisplayText_GivenDisplayTextIntValue_UsesIt()
+        {
+            SetCurrentThreadCulture(new CultureInfo("pt-BR"));
+
+            var person = new Person();
+
+            var errors = new Validation<Person>(person)
+                .HasDisplayText(x => x.Age, "Idade")
+                .IsBetween(x => x.Age, 1, 2)
+                .ToList();
+
+            Assert.Equal("Age", errors[0].Property);
+            Assert.Equal($"O campo Idade deve ser preenchido com valores entre 1 e 2.", errors[0].Message);
+        }
+
         [Fact]
         public void HasDisplayText_GivenInvalidExpression_ThrowsException()
         {

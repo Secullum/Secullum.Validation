@@ -30,6 +30,16 @@ namespace Secullum.Validation
 
         public Validation<T> HasDisplayText(Expression<Func<T, string>> expression, string displayText)
         {
+            return HasDisplayText((LambdaExpression)expression, displayText);
+        }
+
+        public Validation<T> HasDisplayText(Expression<Func<T, int>> expression, string displayText)
+        {
+            return HasDisplayText((LambdaExpression)expression, displayText);
+        }
+
+        private Validation<T> HasDisplayText(LambdaExpression expression, string displayText)
+        {
             ThrowIfNotMemberAccessExpression(expression.Body);
 
             var memberExpression = (MemberExpression)expression.Body;
@@ -63,7 +73,7 @@ namespace Secullum.Validation
             }
 
             var value = expression.Compile()(target);
-
+            
             if (value != null && value.Length > maxLength)
             {
                 AddError((MemberExpression)expression.Body, GetString(HasMaxLengthMessage), maxLength);
@@ -86,18 +96,11 @@ namespace Secullum.Validation
 
             return this;
         }
-        
+
         public Validation<T> IsUnique(Expression<Func<T, string>> expression)
         {
             ThrowIfNotMemberAccessExpression(expression.Body);
-            
-            if (dbContext == null)
-            {
-                throw new ArgumentNullException("dbContext");
-            }
 
-            var idProp = typeof(T).GetTypeInfo().GetDeclaredProperty("Id");
-            var idValue = idProp.GetValue(target);
             var propValue = expression.Compile()(target);
 
             if (string.IsNullOrEmpty(propValue))
@@ -105,6 +108,33 @@ namespace Secullum.Validation
                 return this;
             }
 
+            return IsUnique(expression, propValue);
+        }
+
+        public Validation<T> IsUnique(Expression<Func<T, int>> expression)
+        {
+            ThrowIfNotMemberAccessExpression(expression.Body);
+
+            var propValue = expression.Compile()(target);
+
+            if (propValue == 0)
+            {
+                return this;
+            }
+
+            return IsUnique(expression, propValue);
+        }
+
+        private Validation<T> IsUnique(LambdaExpression expression, object propValue)
+        {
+            if (dbContext == null)
+            {
+                throw new ArgumentNullException("dbContext");
+            }
+
+            var idProp = typeof(T).GetTypeInfo().GetDeclaredProperty("Id");
+            var idValue = idProp.GetValue(target);
+            
             // x.Name == "fernando"
             var equalExpression = Expression.Equal(
                 expression.Body,
@@ -156,6 +186,20 @@ namespace Secullum.Validation
             if (!string.IsNullOrEmpty(value) && !ValidationUtils.IsCnpj(value))
             {
                 AddError((MemberExpression)expression.Body, GetString(IsCnpjMessage));
+            }
+
+            return this;
+        }
+
+        public Validation<T> IsBetween(Expression<Func<T, int>> expression, int initial, int final)
+        {
+            ThrowIfNotMemberAccessExpression(expression.Body);
+
+            var value = expression.Compile()(target);
+            
+            if(value < initial || value > final) 
+            {
+                AddError((MemberExpression)expression.Body, GetString(IsOutOfRange), initial, final);
             }
 
             return this;

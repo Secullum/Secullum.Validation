@@ -13,6 +13,7 @@ namespace Secullum.Validation
             IsCpfMessage,
             IsCnpjMessage,
             IsUniqueMessage,
+            IsOutOfRange,
             InvalidExpressionMessage
         }
 
@@ -45,6 +46,10 @@ namespace Secullum.Validation
             englishDictionary.Add(StringTypes.IsUniqueMessage, "{0} already exists.");
             portugueseDictionary.Add(StringTypes.IsUniqueMessage, "{0} já existe.");
             spanishDictionary.Add(StringTypes.IsUniqueMessage, "{0} ya existe.");
+
+            englishDictionary.Add(StringTypes.IsOutOfRange, "The field {0} must be filled with values between {1} and {2}.");
+            portugueseDictionary.Add(StringTypes.IsOutOfRange, "O campo {0} deve ser preenchido com valores entre {1} e {2}.");
+            spanishDictionary.Add(StringTypes.IsOutOfRange, "El campo {0} debe ser llenado con valores entre {1} y {2}.");
 
             englishDictionary.Add(StringTypes.InvalidExpressionMessage, "Invalid expression.");
             portugueseDictionary.Add(StringTypes.InvalidExpressionMessage, "Expressão inválida.");

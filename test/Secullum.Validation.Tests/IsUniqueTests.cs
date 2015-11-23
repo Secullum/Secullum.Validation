@@ -49,7 +49,31 @@ namespace Secullum.Validation.Tests
         }
 
         [Fact]
-        public void IsUnique_GivenEmptyField_DontReturnErrors()
+        public void IsUnique_GivenNewAgeAndSameId_DontReturnErrors()
+        {
+            var person = new Person() { Id = 1, Age = 25 };
+
+            var errors = new Validation<Person>(person, context)
+                .IsUnique(x => x.Age)
+                .ToList();
+
+            Assert.Equal(0, errors.Count);
+        }
+
+        [Fact]
+        public void IsUnique_GivenEmptyAgeField_DontReturnErrors()
+        {
+            var person = new Person() { Id = 2, Name = "alex" };
+
+            var errors = new Validation<Person>(person, context)
+                .IsUnique(x => x.Age)
+                .ToList();
+
+            Assert.Equal(0, errors.Count);
+        }
+
+        [Fact]
+        public void IsUnique_GivenEmptyEmailField_DontReturnErrors()
         {
             var person = new Person() { Id = 2, Name = "alex" };
 
@@ -76,7 +100,7 @@ namespace Secullum.Validation.Tests
         [Fact]
         public void IsUnique_GivenInvalidExpression_ThrowsException()
         {
-            var person = new Person();
+            var person = new Person() { Name = "fernando" };
 
             Assert.Throws<ArgumentException>("expression", () =>
             {
@@ -89,7 +113,7 @@ namespace Secullum.Validation.Tests
         [Fact]
         public void IsUnique_NotGivenDbContext_ThrowsException()
         {
-            var person = new Person();
+            var person = new Person() { Name = "fernando" };
 
             Assert.Throws<ArgumentNullException>("dbContext", () =>
             {
