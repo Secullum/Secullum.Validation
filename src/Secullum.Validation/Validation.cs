@@ -205,6 +205,16 @@ namespace Secullum.Validation
             return this;
         }
 
+        public Validation<T> GenericValidation(Expression<Func<T, bool>> expression, string property, string message)
+        {
+            if (expression.Compile()(target))
+            {
+                errorList.Add(new ValidationError(property, message));
+            }
+
+            return this;
+        }
+
         public IList<ValidationError> ToList()
         {
             return new ReadOnlyCollection<ValidationError>(errorList);

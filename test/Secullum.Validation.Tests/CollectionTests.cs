@@ -84,5 +84,20 @@ namespace Secullum.Validation.Tests
             Assert.Equal(1, errors.Count);
             Assert.Equal("Name", errors[0][0].Property);
         }
+
+        [Fact]
+        public void GenericValidation_GivenFalseCondition_ReturnErrors()
+        {
+            var people = new List<Person>();
+
+            people.Add(new Person() { Id = 2, Age = 20, Email = "unknown@domain.net" });
+
+            var errors = new CollectionValidation<Person>(people)
+                .GenericValidation(x => (x.Email == "unknown@domain.net" || x.Id == 1) && x.Age > 0, "Email", "Preencha o campo Email corretamente")
+                .ToList();
+
+            Assert.Equal(1, errors[0].Count);
+            Assert.Equal("Preencha o campo Email corretamente", errors[0][0].Message);
+        }
     }
 }
