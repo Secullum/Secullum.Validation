@@ -20,6 +20,6 @@ namespace Secullum.Validation
         TValidation IsCpf(Expression<Func<TTarget, string>> expression);
         TValidation IsCnpj(Expression<Func<TTarget, string>> expression);
         TValidation IsBetween(Expression<Func<TTarget, int>> expression, int initial, int final);
-        TValidation GenericValidation(Expression<Func<TTarget, bool>> expression, string property, string message);
+        TValidation HasCustomValidation(Func<TTarget, bool> expression, string property, string message);
     }
 }

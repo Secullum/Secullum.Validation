@@ -124,11 +124,11 @@ namespace Secullum.Validation
             return this;
         }
         
-        public CollectionValidation<T> GenericValidation(Expression<Func<T, bool>> expression, string property, string message)
+        public CollectionValidation<T> HasCustomValidation(Func<T, bool> expression, string property, string message)
         {
             foreach (var validation in validationCollection)
             {
-                validation.GenericValidation(expression, property, message);
+                validation.HasCustomValidation(expression, property, message);
             }
 
             return this;

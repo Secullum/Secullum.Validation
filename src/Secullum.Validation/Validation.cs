@@ -205,9 +205,9 @@ namespace Secullum.Validation
             return this;
         }
 
-        public Validation<T> GenericValidation(Expression<Func<T, bool>> expression, string property, string message)
+        public Validation<T> HasCustomValidation(Func<T, bool> expression, string property, string message)
         {
-            if (expression.Compile()(target))
+            if (!expression(target))
             {
                 errorList.Add(new ValidationError(property, message));
             }

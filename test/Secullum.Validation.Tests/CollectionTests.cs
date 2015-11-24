@@ -86,14 +86,14 @@ namespace Secullum.Validation.Tests
         }
 
         [Fact]
-        public void GenericValidation_GivenFalseCondition_ReturnErrors()
+        public void HasCustomValidation_GivenFalseCondition_ReturnErrors()
         {
             var people = new List<Person>();
 
-            people.Add(new Person() { Id = 2, Age = 20, Email = "unknown@domain.net" });
+            people.Add(new Person());
 
             var errors = new CollectionValidation<Person>(people)
-                .GenericValidation(x => (x.Email == "unknown@domain.net" || x.Id == 1) && x.Age > 0, "Email", "Preencha o campo Email corretamente")
+                .HasCustomValidation(x => false, "Email", "Preencha o campo Email corretamente")
                 .ToList();
 
             Assert.Equal(1, errors[0].Count);
