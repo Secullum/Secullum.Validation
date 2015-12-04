@@ -14,6 +14,7 @@ namespace Secullum.Validation
             IsCnpjMessage,
             IsUniqueMessage,
             IsOutOfRange,
+            IsOutOfDate,
             InvalidExpressionMessage
         }
 
@@ -54,6 +55,10 @@ namespace Secullum.Validation
             englishDictionary.Add(StringTypes.InvalidExpressionMessage, "Invalid expression.");
             portugueseDictionary.Add(StringTypes.InvalidExpressionMessage, "Expressão inválida.");
             spanishDictionary.Add(StringTypes.InvalidExpressionMessage, "Expresión no válida.");
+
+            englishDictionary.Add(StringTypes.IsOutOfDate, "Fill the field {0} correctly.");
+            portugueseDictionary.Add(StringTypes.IsOutOfDate, "Preencha o campo {0} corretamente.");
+            spanishDictionary.Add(StringTypes.IsOutOfDate, "Rellene el campo {0} correctamente.");
         }
 
         public static string GetString(StringTypes stringType)

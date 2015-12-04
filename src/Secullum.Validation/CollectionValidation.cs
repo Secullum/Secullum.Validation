@@ -44,6 +44,16 @@ namespace Secullum.Validation
             return this;
         }
 
+        public CollectionValidation<T> HasDisplayText(Expression<Func<T, DateTime>> expression, string displayText)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.HasDisplayText(expression, displayText);
+            }
+
+            return this;
+        }
+
         public CollectionValidation<T> IsRequired(Expression<Func<T, string>> expression)
         {
             foreach (var validation in validationCollection)
@@ -53,7 +63,17 @@ namespace Secullum.Validation
 
             return this;
         }
-        
+
+        public CollectionValidation<T> IsRequired(Expression<Func<T, DateTime>> expression)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.IsRequired(expression);
+            }
+
+            return this;
+        }
+
         public CollectionValidation<T> HasMaxLength(Expression<Func<T, string>> expression, int maxLength)
         {
             foreach (var validation in validationCollection)
@@ -85,6 +105,16 @@ namespace Secullum.Validation
         }
 
         public CollectionValidation<T> IsUnique(Expression<Func<T, int>> expression)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.IsUnique(expression);
+            }
+
+            return this;
+        }
+
+        public CollectionValidation<T> IsUnique(Expression<Func<T, DateTime>> expression)
         {
             foreach (var validation in validationCollection)
             {
@@ -129,6 +159,16 @@ namespace Secullum.Validation
             foreach (var validation in validationCollection)
             {
                 validation.HasCustomValidation(expression, property, message);
+            }
+
+            return this;
+        }
+
+        public CollectionValidation<T> IsSmallDateTime(Expression<Func<T, DateTime>> expression)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.IsSmallDateTime(expression);
             }
 
             return this;

@@ -99,5 +99,24 @@ namespace Secullum.Validation.Tests
             Assert.Equal(1, errors[0].Count);
             Assert.Equal("Preencha o campo Email corretamente", errors[0][0].Message);
         }
+
+        [Theory]
+        [InlineData(2015, 10, 10)]
+        [InlineData(2000, 10, 15)]
+        [InlineData(1935, 10, 10)]
+        [InlineData(2040, 10, 10)]
+        public void IsSmallDateTime_GivenValidField_DontReturnErrors(int year, int month, int day)
+        {
+            var people = new List<Person>();
+
+            people.Add(new Person() { Birth = new DateTime(year, month, day) });
+
+            var errors = new CollectionValidation<Person>(people)
+                .IsSmallDateTime(x => x.Birth)
+                .ToList();
+
+            Assert.Equal(0, errors[0].Count);
+        }
+
     }
 }

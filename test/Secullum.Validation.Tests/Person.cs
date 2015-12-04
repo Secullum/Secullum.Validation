@@ -1,4 +1,6 @@
-﻿namespace Secullum.Validation.Tests
+﻿using System;
+
+namespace Secullum.Validation.Tests
 {
     public class Person
     {
@@ -8,5 +10,6 @@
         public int Age { get; set; }
         public string Cpf { get; set; }
         public string Cnpj { get; set; }
+        public DateTime Birth { get; set; }
     }
 }

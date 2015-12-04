@@ -38,6 +38,11 @@ namespace Secullum.Validation
             return HasDisplayText((LambdaExpression)expression, displayText);
         }
 
+        public Validation<T> HasDisplayText(Expression<Func<T, DateTime>> expression, string displayText)
+        {
+            return HasDisplayText((LambdaExpression)expression, displayText);
+        }
+
         private Validation<T> HasDisplayText(LambdaExpression expression, string displayText)
         {
             ThrowIfNotMemberAccessExpression(expression.Body);
@@ -48,7 +53,7 @@ namespace Secullum.Validation
 
             return this;
         }
-
+        
         public Validation<T> IsRequired(Expression<Func<T, string>> expression)
         {
             ThrowIfNotMemberAccessExpression(expression.Body);
@@ -56,6 +61,20 @@ namespace Secullum.Validation
             var value = expression.Compile()(target);
 
             if (string.IsNullOrWhiteSpace(value))
+            {
+                AddError((MemberExpression)expression.Body, GetString(IsRequiredMessage));
+            }
+
+            return this;
+        }
+
+        public Validation<T> IsRequired(Expression<Func<T, DateTime>> expression)
+        {
+            ThrowIfNotMemberAccessExpression(expression.Body);
+
+            var value = expression.Compile()(target);
+
+            if (value == null)
             {
                 AddError((MemberExpression)expression.Body, GetString(IsRequiredMessage));
             }
@@ -118,6 +137,20 @@ namespace Secullum.Validation
             var propValue = expression.Compile()(target);
 
             if (propValue == 0)
+            {
+                return this;
+            }
+
+            return IsUnique(expression, propValue);
+        }
+
+        public Validation<T> IsUnique(Expression<Func<T, DateTime>> expression)
+        {
+            ThrowIfNotMemberAccessExpression(expression.Body);
+
+            var propValue = expression.Compile()(target);
+
+            if (propValue == null)
             {
                 return this;
             }
@@ -218,6 +251,25 @@ namespace Secullum.Validation
         public IList<ValidationError> ToList()
         {
             return new ReadOnlyCollection<ValidationError>(errorList);
+        }
+
+        public Validation<T> IsSmallDateTime(Expression<Func<T, DateTime>> expression)
+        {
+            ThrowIfNotMemberAccessExpression(expression.Body);
+
+            var value = expression.Compile()(target);
+
+            if (value == null)
+            {
+                return this;
+            }
+
+            if (value < new DateTime (1900, 1, 1) || value > new DateTime(2079, 6, 6))
+            {
+                AddError((MemberExpression)expression.Body, GetString(IsOutOfDate));
+            }
+
+            return this;
         }
 
         private void AddError(MemberExpression expression, string message, params object[] formatArgs)
