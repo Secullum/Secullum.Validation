@@ -12,7 +12,11 @@ namespace Secullum.Validation
     {
         TValidation HasDisplayText(Expression<Func<TTarget, string>> expression, string displayText);
         TValidation HasDisplayText(Expression<Func<TTarget, int>> expression, string displayText);
+        TValidation HasDisplayText(Expression<Func<TTarget, int?>> expression, string displayText);
+        TValidation HasDisplayText(Expression<Func<TTarget, float>> expression, string displayText);
+        TValidation HasDisplayText(Expression<Func<TTarget, float?>> expression, string displayText);
         TValidation HasDisplayText(Expression<Func<TTarget, DateTime>> expression, string displayText);
+        TValidation HasDisplayText(Expression<Func<TTarget, DateTime?>> expression, string displayText);
         TValidation IsRequired(Expression<Func<TTarget, string>> expression);
         TValidation IsRequired(Expression<Func<TTarget, DateTime>> expression);
         TValidation HasMaxLength(Expression<Func<TTarget, string>> expression, int maxLength);
@@ -24,6 +28,9 @@ namespace Secullum.Validation
         TValidation IsCnpj(Expression<Func<TTarget, string>> expression);
         TValidation IsSmallDateTime(Expression<Func<TTarget, DateTime>> expression);
         TValidation IsBetween(Expression<Func<TTarget, int>> expression, int initial, int final);
+        TValidation IsBetween(Expression<Func<TTarget, int?>> expression, int initial, int final);
+        TValidation IsBetween(Expression<Func<TTarget, float>> expression, float initial, float final);
+        TValidation IsBetween(Expression<Func<TTarget, float?>> expression, float initial, float final);
         TValidation HasCustomValidation(Func<TTarget, bool> expression, string property, string message);
     }
 }

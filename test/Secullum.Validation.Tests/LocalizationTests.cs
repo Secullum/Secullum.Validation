@@ -50,7 +50,7 @@ namespace Secullum.Validation.Tests
         [Fact]
         public void Localization_GivenUnknowCulture_ReturnsEnglishErrorMessage()
         {
-            SetCurrentThreadCulture(new CultureInfo("aa-AA"));
+            SetCurrentThreadCulture(new CultureInfo("ja-JP"));
 
             var person = new Person();
 

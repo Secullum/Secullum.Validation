@@ -44,7 +44,47 @@ namespace Secullum.Validation
             return this;
         }
 
+        public CollectionValidation<T> HasDisplayText(Expression<Func<T, int?>> expression, string displayText)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.HasDisplayText(expression, displayText);
+            }
+
+            return this;
+        }
+
+        public CollectionValidation<T> HasDisplayText(Expression<Func<T, float>> expression, string displayText)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.HasDisplayText(expression, displayText);
+            }
+
+            return this;
+        }
+
+        public CollectionValidation<T> HasDisplayText(Expression<Func<T, float?>> expression, string displayText)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.HasDisplayText(expression, displayText);
+            }
+
+            return this;
+        }
+
         public CollectionValidation<T> HasDisplayText(Expression<Func<T, DateTime>> expression, string displayText)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.HasDisplayText(expression, displayText);
+            }
+
+            return this;
+        }
+
+        public CollectionValidation<T> HasDisplayText(Expression<Func<T, DateTime?>> expression, string displayText)
         {
             foreach (var validation in validationCollection)
             {
@@ -153,7 +193,37 @@ namespace Secullum.Validation
 
             return this;
         }
-        
+
+        public CollectionValidation<T> IsBetween(Expression<Func<T, int?>> expression, int initial, int final)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.IsBetween(expression, initial, final);
+            }
+
+            return this;
+        }
+
+        public CollectionValidation<T> IsBetween(Expression<Func<T, float>> expression, float initial, float final)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.IsBetween(expression, initial, final);
+            }
+
+            return this;
+        }
+
+        public CollectionValidation<T> IsBetween(Expression<Func<T, float?>> expression, float initial, float final)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.IsBetween(expression, initial, final);
+            }
+
+            return this;
+        }
+
         public CollectionValidation<T> HasCustomValidation(Func<T, bool> expression, string property, string message)
         {
             foreach (var validation in validationCollection)
@@ -165,6 +235,16 @@ namespace Secullum.Validation
         }
 
         public CollectionValidation<T> IsSmallDateTime(Expression<Func<T, DateTime>> expression)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.IsSmallDateTime(expression);
+            }
+
+            return this;
+        }
+
+        public CollectionValidation<T> IsSmallDateTime(Expression<Func<T, DateTime?>> expression)
         {
             foreach (var validation in validationCollection)
             {

@@ -38,7 +38,27 @@ namespace Secullum.Validation
             return HasDisplayText((LambdaExpression)expression, displayText);
         }
 
+        public Validation<T> HasDisplayText(Expression<Func<T, int?>> expression, string displayText)
+        {
+            return HasDisplayText((LambdaExpression)expression, displayText);
+        }
+
+        public Validation<T> HasDisplayText(Expression<Func<T, float>> expression, string displayText)
+        {
+            return HasDisplayText((LambdaExpression)expression, displayText);
+        }
+
+        public Validation<T> HasDisplayText(Expression<Func<T, float?>> expression, string displayText)
+        {
+            return HasDisplayText((LambdaExpression)expression, displayText);
+        }
+
         public Validation<T> HasDisplayText(Expression<Func<T, DateTime>> expression, string displayText)
+        {
+            return HasDisplayText((LambdaExpression)expression, displayText);
+        }
+
+        public Validation<T> HasDisplayText(Expression<Func<T, DateTime?>> expression, string displayText)
         {
             return HasDisplayText((LambdaExpression)expression, displayText);
         }
@@ -229,13 +249,45 @@ namespace Secullum.Validation
             ThrowIfNotMemberAccessExpression(expression.Body);
 
             var value = expression.Compile()(target);
-            
-            if(value < initial || value > final) 
+
+            return CheckIsBetween(expression, value, initial, final);
+        }
+
+        public Validation<T> IsBetween(Expression<Func<T, int?>> expression, int initial, int final)
+        {
+            ThrowIfNotMemberAccessExpression(expression.Body);
+
+            var value = expression.Compile()(target);
+
+            if (value == null)
             {
-                AddError((MemberExpression)expression.Body, GetString(IsOutOfRange), initial, final);
+                return this;
             }
 
-            return this;
+            return CheckIsBetween(expression, value.Value, initial, final);
+        }
+
+        public Validation<T> IsBetween(Expression<Func<T, float>> expression, float initial, float final)
+        {
+            ThrowIfNotMemberAccessExpression(expression.Body);
+
+            var value = expression.Compile()(target);
+
+            return CheckIsBetween(expression, value, initial, final);
+        }
+
+        public Validation<T> IsBetween(Expression<Func<T, float?>> expression, float initial, float final)
+        {
+            ThrowIfNotMemberAccessExpression(expression.Body);
+
+            var value = expression.Compile()(target);
+
+            if (value == null)
+            {
+                return this;
+            }
+
+            return CheckIsBetween(expression, value.Value, initial, final);
         }
 
         public Validation<T> HasCustomValidation(Func<T, bool> expression, string property, string message)
@@ -259,14 +311,38 @@ namespace Secullum.Validation
 
             var value = expression.Compile()(target);
 
+            return CheckSmallDateTime(expression, value);
+        }
+
+        public Validation<T> IsSmallDateTime(Expression<Func<T, DateTime?>> expression)
+        {
+            ThrowIfNotMemberAccessExpression(expression.Body);
+
+            var value = expression.Compile()(target);
+
             if (value == null)
             {
                 return this;
             }
 
-            if (value < new DateTime (1900, 1, 1) || value > new DateTime(2079, 6, 6))
+            return CheckSmallDateTime(expression, value.Value);
+        }
+
+        private Validation<T> CheckSmallDateTime(LambdaExpression expression, DateTime value)
+        {
+            if (value < new DateTime(1900, 1, 1) || value > new DateTime(2079, 6, 6))
             {
                 AddError((MemberExpression)expression.Body, GetString(IsOutOfDate));
+            }
+
+            return this;
+        }
+
+        private Validation<T> CheckIsBetween(LambdaExpression expression, float value, float initial, float final)
+        {
+            if (value < initial || value > final)
+            {
+                AddError((MemberExpression)expression.Body, GetString(IsOutOfRange), initial, final);
             }
 
             return this;
