@@ -18,6 +18,7 @@ namespace Secullum.Validation
         TValidation HasDisplayText(Expression<Func<TTarget, DateTime>> expression, string displayText);
         TValidation HasDisplayText(Expression<Func<TTarget, DateTime?>> expression, string displayText);
         TValidation IsRequired(Expression<Func<TTarget, string>> expression);
+        TValidation IsRequired(Expression<Func<TTarget, int>> expression);
         TValidation IsRequired(Expression<Func<TTarget, DateTime>> expression);
         TValidation HasMaxLength(Expression<Func<TTarget, string>> expression, int maxLength);
         TValidation IsEmail(Expression<Func<TTarget, string>> expression);

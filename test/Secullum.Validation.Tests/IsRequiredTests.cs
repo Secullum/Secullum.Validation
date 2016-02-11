@@ -32,7 +32,32 @@ namespace Secullum.Validation.Tests
             Assert.Equal(1, errors.Count);
             Assert.Equal("Name", errors[0].Property);
         }
-        
+
+        [Fact]
+        public void IsRequired_GivenValidIntField_DontReturnErrors()
+        {
+            var person = new Person() { Age = 21 };
+
+            var errors = new Validation<Person>(person)
+                .IsRequired(x => x.Age)
+                .ToList();
+
+            Assert.Equal(0, errors.Count);
+        }
+
+        [Fact]
+        public void IsRequired_GivenUnsetField_ReturnError()
+        {
+            var person = new Person();
+
+            var errors = new Validation<Person>(person)
+                .IsRequired(x => x.Age)
+                .ToList();
+
+            Assert.Equal(1, errors.Count);
+            Assert.Equal("Age", errors[0].Property);
+        }
+
         [Fact]
         public void IsRequired_GivenInvalidExpression_ThrowsException()
         {

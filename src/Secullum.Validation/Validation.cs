@@ -88,6 +88,20 @@ namespace Secullum.Validation
             return this;
         }
 
+        public Validation<T> IsRequired(Expression<Func<T, int>> expression)
+        {
+            ThrowIfNotMemberAccessExpression(expression.Body);
+
+            var value = expression.Compile()(target);
+
+            if (value <= 0)
+            {
+                AddError((MemberExpression)expression.Body, GetString(IsRequiredMessage));
+            }
+
+            return this;
+        }
+
         public Validation<T> IsRequired(Expression<Func<T, DateTime>> expression)
         {
             ThrowIfNotMemberAccessExpression(expression.Body);
