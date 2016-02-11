@@ -13,6 +13,7 @@ namespace Secullum.Validation.Tests
         public float? Weight { get; set; }
         public string Cpf { get; set; }
         public string Cnpj { get; set; }
+        public string Pis { get; set; }
         public DateTime Birth { get; set; }
         public DateTime? Death { get; set; }
     }

@@ -193,7 +193,17 @@ namespace Secullum.Validation
 
             return this;
         }
-        
+
+        public CollectionValidation<T> IsPis(Expression<Func<T, string>> expression)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.IsPis(expression);
+            }
+
+            return this;
+        }
+
         public CollectionValidation<T> IsBetween(Expression<Func<T, int>> expression, int initial, int final)
         {
             foreach (var validation in validationCollection)

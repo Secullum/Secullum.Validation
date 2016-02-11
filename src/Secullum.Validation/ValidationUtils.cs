@@ -107,5 +107,31 @@ namespace Secullum.Validation
 
             return value.EndsWith(checkDigits);
         }
+
+        public static bool IsPis(string value)
+        {
+            var multiplier = new int[10] { 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+            var sum = 0; 
+            int mod;
+
+            value = value.Replace("-", "").Replace(".", "").PadLeft(11, '0');
+
+            // Test sequences of 0
+            if (value.Replace("0", "").Trim().Length == 0)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                sum += int.Parse(value[i].ToString()) * multiplier[i];
+            }
+
+            mod = sum % 11;
+
+            mod = mod < 2 ? 0 : 11 - mod;
+
+            return value.EndsWith(mod.ToString());
+        }
     }
 }

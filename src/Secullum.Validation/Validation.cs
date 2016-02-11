@@ -258,6 +258,21 @@ namespace Secullum.Validation
             return this;
         }
 
+
+        public Validation<T> IsPis(Expression<Func<T, string>> expression)
+        {
+            ThrowIfNotMemberAccessExpression(expression.Body);
+
+            var value = expression.Compile()(target);
+
+            if (!string.IsNullOrEmpty(value) && !ValidationUtils.IsPis(value))
+            {
+                AddError((MemberExpression)expression.Body, GetString(IsPisMessage));
+            }
+
+            return this;
+        }
+
         public Validation<T> IsBetween(Expression<Func<T, int>> expression, int initial, int final)
         {
             ThrowIfNotMemberAccessExpression(expression.Body);

@@ -27,6 +27,7 @@ namespace Secullum.Validation
         TValidation IsUnique(Expression<Func<TTarget, DateTime>> expression);
         TValidation IsCpf(Expression<Func<TTarget, string>> expression);
         TValidation IsCnpj(Expression<Func<TTarget, string>> expression);
+        TValidation IsPis(Expression<Func<TTarget, string>> expression);
         TValidation IsSmallDateTime(Expression<Func<TTarget, DateTime>> expression);
         TValidation IsBetween(Expression<Func<TTarget, int>> expression, int initial, int final);
         TValidation IsBetween(Expression<Func<TTarget, int?>> expression, int initial, int final);
