@@ -113,6 +113,7 @@ namespace Secullum.Validation
             var multiplier = new int[10] { 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
             var sum = 0; 
             int mod;
+            int auxParse = 0;
 
             value = value.Replace("-", "").Replace(".", "").PadLeft(11, '0');
 
@@ -124,6 +125,10 @@ namespace Secullum.Validation
 
             for (int i = 0; i < 10; i++)
             {
+                if (!int.TryParse(value[i].ToString(), out auxParse)) {
+                    return false;
+                }
+
                 sum += int.Parse(value[i].ToString()) * multiplier[i];
             }
 

@@ -258,7 +258,6 @@ namespace Secullum.Validation
             return this;
         }
 
-
         public Validation<T> IsPis(Expression<Func<T, string>> expression)
         {
             ThrowIfNotMemberAccessExpression(expression.Body);

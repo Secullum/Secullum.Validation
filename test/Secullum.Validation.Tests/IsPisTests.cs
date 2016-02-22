@@ -30,6 +30,9 @@ namespace Secullum.Validation.Tests
         [InlineData("3458023475")]
         [InlineData("23458023475234805384")]
         [InlineData("           ")]
+        [InlineData("²³££³²¢!@#!@##")]
+        [InlineData("¬¬¬¬¬¬¬¬¬¬¬")]
+        [InlineData("99999999999")]
         public void IsPis_GivenInvalidField_ReturnError(string pis)
         {
             var person = new Person() { Pis = pis };
