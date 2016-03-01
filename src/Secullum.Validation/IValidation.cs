@@ -33,6 +33,9 @@ namespace Secullum.Validation
         TValidation IsBetween(Expression<Func<TTarget, int?>> expression, int initial, int final);
         TValidation IsBetween(Expression<Func<TTarget, float>> expression, float initial, float final);
         TValidation IsBetween(Expression<Func<TTarget, float?>> expression, float initial, float final);
+        TValidation IsHour(Expression<Func<TTarget, string>> expression);
+        TValidation IsTimespan(Expression<Func<TTarget, string>> expression);
+        TValidation Matches(Expression<Func<TTarget, string>> expression, string pattern, string message);
         TValidation HasCustomValidation(Func<TTarget, bool> expression, string property, string message);
     }
 }

@@ -318,6 +318,35 @@ namespace Secullum.Validation
             return CheckIsBetween(expression, value.Value, initial, final);
         }
 
+        public Validation<T> IsHour(Expression<Func<T, string>> expression)
+        {
+            var regexHour = @"^([01][0-9]|2[0-3]):([0-5][0-9])$";
+
+            return Matches(expression, regexHour, GetString(IsHourMessage));
+        }
+
+        public Validation<T> IsTimespan(Expression<Func<T, string>> expression)
+        {
+            var regexTimespan = @"^([0-9]+):([0-5][0-9])$";
+
+            return Matches(expression, regexTimespan, GetString(IsTimespanMessage));
+        }
+
+        public Validation<T> Matches(Expression<Func<T, string>> expression, string pattern, string message)
+        {
+            ThrowIfNotMemberAccessExpression(expression.Body);
+
+            var value = expression.Compile()(target);
+            var regex = new Regex(pattern);
+
+            if (!string.IsNullOrEmpty(value) && !regex.IsMatch(value))
+            {
+                AddError((MemberExpression)expression.Body, message);
+            }
+
+            return this;
+        }
+
         public Validation<T> HasCustomValidation(Func<T, bool> expression, string property, string message)
         {
             if (!expression(target))

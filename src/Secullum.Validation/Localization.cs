@@ -16,6 +16,8 @@ namespace Secullum.Validation
             IsUniqueMessage,
             IsOutOfRange,
             IsOutOfDate,
+            IsHourMessage,
+            IsTimespanMessage,
             InvalidExpressionMessage
         }
 
@@ -64,6 +66,14 @@ namespace Secullum.Validation
             englishDictionary.Add(StringTypes.IsOutOfDate, "Fill the field {0} correctly.");
             portugueseDictionary.Add(StringTypes.IsOutOfDate, "Preencha o campo {0} corretamente.");
             spanishDictionary.Add(StringTypes.IsOutOfDate, "Rellene el campo {0} correctamente.");
+
+            englishDictionary.Add(StringTypes.IsHourMessage, "Fill the field {0} correctly.");
+            portugueseDictionary.Add(StringTypes.IsHourMessage, "Preencha o campo {0} corretamente.");
+            spanishDictionary.Add(StringTypes.IsHourMessage, "Rellene el campo {0} correctamente.");
+
+            englishDictionary.Add(StringTypes.IsTimespanMessage, "Fill the field {0} correctly.");
+            portugueseDictionary.Add(StringTypes.IsTimespanMessage, "Preencha o campo {0} corretamente.");
+            spanishDictionary.Add(StringTypes.IsTimespanMessage, "Rellene el campo {0} correctamente.");
         }
 
         public static string GetString(StringTypes stringType)

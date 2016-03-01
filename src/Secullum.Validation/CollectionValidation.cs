@@ -244,6 +244,36 @@ namespace Secullum.Validation
             return this;
         }
 
+        public CollectionValidation<T> IsHour(Expression<Func<T, string>> expression)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.IsHour(expression);
+            }
+
+            return this;
+        }
+
+        public CollectionValidation<T> IsTimespan(Expression<Func<T, string>> expression)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.IsTimespan(expression);
+            }
+
+            return this;
+        }
+
+        public CollectionValidation<T> Matches(Expression<Func<T, string>> expression, string pattern, string message)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.Matches(expression, pattern, message);
+            }
+
+            return this;
+        }
+
         public CollectionValidation<T> HasCustomValidation(Func<T, bool> expression, string property, string message)
         {
             foreach (var validation in validationCollection)
