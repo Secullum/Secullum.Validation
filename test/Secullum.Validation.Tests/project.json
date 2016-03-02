@@ -1,10 +1,10 @@
 ﻿{
   "dependencies": {
     "Secullum.Validation": "",
-    "EntityFramework.Core": "7.0.0-beta8",
-    "EntityFramework.InMemory": "7.0.0-beta8",
+    "EntityFramework.Core": "7.0.0-rc1-final",
+    "EntityFramework.InMemory": "7.0.0-rc1-final",
     "xunit": "2.1.0-*",
-    "xunit.runner.dnx": "2.1.0-beta6-build191"
+    "xunit.runner.dnx": "2.1.0-rc1-build204"
   },
 
   "commands": {
@@ -12,16 +12,6 @@
   },
 
   "frameworks": {
-    "dnx451": { },
-    "dnxcore50": {
-      "System.Collections": "4.0.11-beta-23409",
-      "System.Globalization": "4.0.11-beta-23409",
-      "System.Linq": "4.0.1-beta-23409",
-      "System.Linq.Expressions": "4.0.11-beta-23409",
-      "System.Reflection": "4.0.0",
-      "System.Runtime": "4.0.21-beta-23409",
-      "System.Text.RegularExpressions": "4.0.11-beta-23409",
-      "System.Threading": "4.0.11-beta-23409"
-    }
+    "dnx451": { }
   }
 }

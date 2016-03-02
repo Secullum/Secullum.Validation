@@ -6,15 +6,20 @@ using Xunit;
 
 namespace Secullum.Validation.Tests
 {
-    public class HasCustomValidationTests : BaseTest, IClassFixture<PeopleDbContext>
+    public class HasCustomValidationTests : BaseTest, IDisposable
     {
-        private PeopleDbContext context;
-        
-        public HasCustomValidationTests(PeopleDbContext context)
+        private PeopleDbContext context = new PeopleDbContext();
+
+        public HasCustomValidationTests()
         {
-            this.context = context;
+            context.Database.EnsureCreated();
         }
-        
+
+        public void Dispose()
+        {
+            context.Database.EnsureDeleted();
+        }
+
         [Fact]
         public void HasCustomValidation_GivenSimpleFalseCondition_ReturnErrors()
         {

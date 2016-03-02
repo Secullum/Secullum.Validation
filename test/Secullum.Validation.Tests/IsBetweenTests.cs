@@ -1,18 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace Secullum.Validation.Tests
 {
-    public class IsBetweenTests : BaseTest, IClassFixture<PeopleDbContext>
+    public class IsBetweenTests : BaseTest, IDisposable
     {
-        private PeopleDbContext context;
+        private PeopleDbContext context = new PeopleDbContext();
 
-        public IsBetweenTests(PeopleDbContext context)
+        public IsBetweenTests()
         {
-            this.context = context;
+            context.Database.EnsureCreated();
+        }
+
+        public void Dispose()
+        {
+            context.Database.EnsureDeleted();
         }
 
         [Theory]
@@ -40,6 +46,8 @@ namespace Secullum.Validation.Tests
         [InlineData(100)]
         public void IsBetween_GivenOutOfRangeIntValue_ReturnErrors(int age)
         {
+            SetCurrentThreadCulture(new CultureInfo("pt-BR"));
+
             var person = new Person() { Id = 2, Age = age };
 
             var errors = new Validation<Person>(person, context)
@@ -77,6 +85,8 @@ namespace Secullum.Validation.Tests
         [InlineData(300)]
         public void IsBetween_GivenOutOfRangeFloatValue_ReturnErrors(int height)
         {
+            SetCurrentThreadCulture(new CultureInfo("pt-BR"));
+
             var person = new Person() { Id = 2, Height = height};
 
             var errors = new Validation<Person>(person, context)
@@ -114,6 +124,8 @@ namespace Secullum.Validation.Tests
         [InlineData(999999)]
         public void IsBetween_GivenOutOfRangeNullableIntValue_ReturnErrors(int zipcode)
         {
+            SetCurrentThreadCulture(new CultureInfo("pt-BR"));
+
             var person = new Person() { Id = 2, Zipcode = zipcode };
 
             var errors = new Validation<Person>(person, context)
@@ -151,6 +163,8 @@ namespace Secullum.Validation.Tests
         [InlineData(300)]
         public void IsBetween_GivenOutOfRangeNullableFloatValue_ReturnErrors(int weight)
         {
+            SetCurrentThreadCulture(new CultureInfo("pt-BR"));
+
             var person = new Person() { Id = 2, Weight  = weight };
 
             var errors = new Validation<Person>(person, context)

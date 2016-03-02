@@ -3,13 +3,18 @@ using Xunit;
 
 namespace Secullum.Validation.Tests
 {
-    public class IsUniqueTests : BaseTest, IClassFixture<PeopleDbContext>
+    public class IsUniqueTests : BaseTest, IDisposable
     {
-        private PeopleDbContext context;
+        private PeopleDbContext context = new PeopleDbContext();
 
-        public IsUniqueTests(PeopleDbContext context)
+        public IsUniqueTests()
         {
-            this.context = context;
+            context.Database.EnsureCreated();
+        }
+
+        public void Dispose()
+        {
+            context.Database.EnsureDeleted();
         }
 
         [Fact]
