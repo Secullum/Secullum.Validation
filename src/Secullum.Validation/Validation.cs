@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using static Secullum.Validation.Localization;
 using static Secullum.Validation.Localization.StringTypes;
 

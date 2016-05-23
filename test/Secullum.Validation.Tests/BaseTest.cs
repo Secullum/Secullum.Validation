@@ -6,8 +6,8 @@ namespace Secullum.Validation.Tests
     {
         protected void SetCurrentThreadCulture(CultureInfo cultureInfo)
         {
-            System.Threading.Thread.CurrentThread.CurrentCulture = cultureInfo;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = cultureInfo;
+            CultureInfo.CurrentCulture = cultureInfo;
+            CultureInfo.CurrentUICulture = cultureInfo;
         }
     }
 }
