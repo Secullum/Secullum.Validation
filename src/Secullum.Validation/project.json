@@ -1,6 +1,6 @@
 ﻿{
   "title": "Secullum.Validation",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Secullum.Validation",
 
   "packOptions": {
@@ -11,12 +11,16 @@
   },
 
   "dependencies": {
-    "System.Text.RegularExpressions": "4.0.12-rc2-*",
     "Microsoft.EntityFrameworkCore": "1.0.0-rc2-*"
   },
 
   "frameworks": {
+    "net451": { },
+
     "netstandard1.5": {
+      "dependencies": {
+        "System.Text.RegularExpressions": "4.0.12-rc2-*"
+      },
       "imports": [ "dnxcore50", "portable-net45+win8" ]
     }
   }
