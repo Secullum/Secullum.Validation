@@ -63,6 +63,17 @@ namespace Secullum.Validation
             return HasDisplayText((LambdaExpression)expression, displayText);
         }
 
+
+        public Validation<T> HasDisplayText(Expression<Func<T, Guid>> expression, string displayText)
+        {
+            return HasDisplayText((LambdaExpression)expression, displayText);
+        }
+
+        public Validation<T> HasDisplayText(Expression<Func<T, Guid?>> expression, string displayText)
+        {
+            return HasDisplayText((LambdaExpression)expression, displayText);
+        }
+
         private Validation<T> HasDisplayText(LambdaExpression expression, string displayText)
         {
             ThrowIfNotMemberAccessExpression(expression.Body);
@@ -109,6 +120,34 @@ namespace Secullum.Validation
             var value = expression.Compile()(target);
 
             if (value == null)
+            {
+                AddError((MemberExpression)expression.Body, GetString(IsRequiredMessage));
+            }
+
+            return this;
+        }
+
+        public Validation<T> IsRequired(Expression<Func<T, Guid>> expression)
+        {
+            ThrowIfNotMemberAccessExpression(expression.Body);
+
+            var value = expression.Compile()(target);
+
+            if (value == Guid.Empty)
+            {
+                AddError((MemberExpression)expression.Body, GetString(IsRequiredMessage));
+            }
+
+            return this;
+        }
+
+        public Validation<T> IsRequired(Expression<Func<T, Guid?>> expression)
+        {
+            ThrowIfNotMemberAccessExpression(expression.Body);
+
+            var value = expression.Compile()(target);
+
+            if (!value.HasValue)
             {
                 AddError((MemberExpression)expression.Body, GetString(IsRequiredMessage));
             }

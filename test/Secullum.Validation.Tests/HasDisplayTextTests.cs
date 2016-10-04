@@ -102,6 +102,38 @@ namespace Secullum.Validation.Tests
         }
 
         [Fact]
+        public void HasDisplayText_GivenDisplayTextGuidValue_UsesIt()
+        {
+            SetCurrentThreadCulture(new CultureInfo("pt-BR"));
+
+            var person = new Person();
+
+            var errors = new Validation<Person>(person)
+                .HasDisplayText(x => x.GlobalId, "Global Id")
+                .IsRequired(x => x.GlobalId)
+                .ToList();
+
+            Assert.Equal("GlobalId", errors[0].Property);
+            Assert.Equal($"O campo Global Id é obrigatório.", errors[0].Message);
+        }
+
+        [Fact]
+        public void HasDisplayText_GivenDisplayTextNullableGuidValue_UsesIt()
+        {
+            SetCurrentThreadCulture(new CultureInfo("pt-BR"));
+
+            var person = new Person();
+
+            var errors = new Validation<Person>(person)
+                .HasDisplayText(x => x.UniversalId, "Universal Id")
+                .IsRequired(x => x.UniversalId)
+                .ToList();
+
+            Assert.Equal("UniversalId", errors[0].Property);
+            Assert.Equal($"O campo Universal Id é obrigatório.", errors[0].Message);
+        }
+
+        [Fact]
         public void HasDisplayText_GivenInvalidExpression_ThrowsException()
         {
             var person = new Person();

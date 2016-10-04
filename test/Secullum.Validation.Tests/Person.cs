@@ -17,5 +17,7 @@ namespace Secullum.Validation.Tests
         public string Hour { get; set; }
         public DateTime Birth { get; set; }
         public DateTime? Death { get; set; }
+        public Guid GlobalId { get; set; }
+        public Guid? UniversalId { get; set; }
     }
 }

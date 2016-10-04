@@ -94,6 +94,26 @@ namespace Secullum.Validation
             return this;
         }
 
+        public CollectionValidation<T> HasDisplayText(Expression<Func<T, Guid>> expression, string displayText)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.HasDisplayText(expression, displayText);
+            }
+
+            return this;
+        }
+
+        public CollectionValidation<T> HasDisplayText(Expression<Func<T, Guid?>> expression, string displayText)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.HasDisplayText(expression, displayText);
+            }
+
+            return this;
+        }
+
         public CollectionValidation<T> IsRequired(Expression<Func<T, string>> expression)
         {
             foreach (var validation in validationCollection)
@@ -115,6 +135,16 @@ namespace Secullum.Validation
         }
 
         public CollectionValidation<T> IsRequired(Expression<Func<T, DateTime>> expression)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.IsRequired(expression);
+            }
+
+            return this;
+        }
+
+        public CollectionValidation<T> IsRequired(Expression<Func<T, Guid>> expression)
         {
             foreach (var validation in validationCollection)
             {
