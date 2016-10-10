@@ -119,7 +119,7 @@ namespace Secullum.Validation
 
             var value = expression.Compile()(target);
 
-            if (value == null)
+            if (value == default(DateTime))
             {
                 AddError((MemberExpression)expression.Body, GetString(IsRequiredMessage));
             }

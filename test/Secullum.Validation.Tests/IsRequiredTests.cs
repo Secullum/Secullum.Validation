@@ -6,7 +6,7 @@ namespace Secullum.Validation.Tests
     public class IsRequiredTests : BaseTest
     {
         [Fact]
-        public void IsRequired_GivenValidField_DontReturnErrors()
+        public void IsRequired_GivenValidString_DontReturnErrors()
         {
             var person = new Person() { Name = "Fernando" };
 
@@ -21,7 +21,7 @@ namespace Secullum.Validation.Tests
         [InlineData(null)]
         [InlineData("")]
         [InlineData("        ")]
-        public void IsRequired_GivenEmptyField_ReturnError(string name)
+        public void IsRequired_GivenEmptyString_ReturnError(string name)
         {
             var person = new Person() { Name = name };
 
@@ -34,7 +34,7 @@ namespace Secullum.Validation.Tests
         }
 
         [Fact]
-        public void IsRequired_GivenValidIntField_DontReturnErrors()
+        public void IsRequired_GivenValidInt_DontReturnErrors()
         {
             var person = new Person() { Age = 21 };
 
@@ -46,7 +46,7 @@ namespace Secullum.Validation.Tests
         }
 
         [Fact]
-        public void IsRequired_GivenUnsetField_ReturnError()
+        public void IsRequired_GivenEmptyInt_ReturnError()
         {
             var person = new Person();
 
@@ -56,6 +56,31 @@ namespace Secullum.Validation.Tests
 
             Assert.Equal(1, errors.Count);
             Assert.Equal("Age", errors[0].Property);
+        }
+
+        [Fact]
+        public void IsRequired_GivenValidDateTime_DontReturnErrors()
+        {
+            var person = new Person() { Birth = new DateTime(1990, 5, 15) };
+
+            var errors = new Validation<Person>(person)
+                .IsRequired(x => x.Birth)
+                .ToList();
+
+            Assert.Equal(0, errors.Count);
+        }
+
+        [Fact]
+        public void IsRequired_GivenEmptyDateTime_ReturnError()
+        {
+            var person = new Person() { Birth = new DateTime() };
+
+            var errors = new Validation<Person>(person)
+                .IsRequired(x => x.Birth)
+                .ToList();
+
+            Assert.Equal(1, errors.Count);
+            Assert.Equal("Birth", errors[0].Property);
         }
 
         [Fact]
