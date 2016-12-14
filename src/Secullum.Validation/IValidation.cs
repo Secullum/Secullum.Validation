@@ -18,6 +18,7 @@ namespace Secullum.Validation
         TValidation HasDisplayText(Expression<Func<TTarget, Guid?>> expression, string displayText);
         TValidation IsRequired(Expression<Func<TTarget, string>> expression);
         TValidation IsRequired(Expression<Func<TTarget, int>> expression);
+        TValidation IsRequired(Expression<Func<TTarget, int?>> expression);
         TValidation IsRequired(Expression<Func<TTarget, DateTime>> expression);
         TValidation IsRequired(Expression<Func<TTarget, Guid>> expression);
         TValidation IsRequired(Expression<Func<TTarget, Guid?>> expression);

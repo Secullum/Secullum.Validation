@@ -95,5 +95,18 @@ namespace Secullum.Validation.Tests
                     .ToList();
             });
         }
+
+        [Fact]
+        public void IsRequired_GivenNullInt_ReturnError()
+        {
+            var person = new Person();
+
+            var errors = new Validation<Person>(person)
+                .IsRequired(x => x.Id)
+                .ToList();
+
+            Assert.Equal(1, errors.Count);
+            Assert.Equal("Id", errors[0].Property);
+        }
     }
 }
