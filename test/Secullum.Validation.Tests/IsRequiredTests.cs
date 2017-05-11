@@ -102,11 +102,11 @@ namespace Secullum.Validation.Tests
             var person = new Person();
 
             var errors = new Validation<Person>(person)
-                .IsRequired(x => x.Id)
+                .IsRequired(x => x.Zipcode)
                 .ToList();
 
             Assert.Equal(1, errors.Count);
-            Assert.Equal("Id", errors[0].Property);
+            Assert.Equal("Zipcode", errors[0].Property);
         }
     }
 }
