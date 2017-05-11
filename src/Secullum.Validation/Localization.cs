@@ -18,6 +18,7 @@ namespace Secullum.Validation
             IsOutOfDate,
             IsHourMessage,
             IsTimespanMessage,
+            IsCepMessage,
             InvalidExpressionMessage
         }
 
@@ -74,6 +75,10 @@ namespace Secullum.Validation
             englishDictionary.Add(StringTypes.IsTimespanMessage, "Fill the field {0} correctly.");
             portugueseDictionary.Add(StringTypes.IsTimespanMessage, "Preencha o campo {0} corretamente.");
             spanishDictionary.Add(StringTypes.IsTimespanMessage, "Rellene el campo {0} correctamente.");
+
+            englishDictionary.Add(StringTypes.IsCepMessage, "Fill the field {0} correctly.");
+            portugueseDictionary.Add(StringTypes.IsCepMessage, "Preencha o campo {0} corretamente.");
+            spanishDictionary.Add(StringTypes.IsCepMessage, "Rellene el campo {0} correctamente.");
         }
 
         public static string GetString(StringTypes stringType)

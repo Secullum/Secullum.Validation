@@ -370,6 +370,13 @@ namespace Secullum.Validation
             return CheckIsBetween(expression, value.Value, initial, final);
         }
 
+        public Validation<T> IsCep(Expression<Func<T, string>> expression)
+        {
+            var regexCep = @"^\d{5}\-?\d{3}$";
+
+            return Matches(expression, regexCep, GetString(IsHourMessage));
+        }
+
         public Validation<T> IsHour(Expression<Func<T, string>> expression)
         {
             var regexHour = @"^([01][0-9]|2[0-3]):([0-5][0-9])$";
