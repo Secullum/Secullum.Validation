@@ -1,6 +1,12 @@
 ﻿{
   "testRunner": "xunit",
 
+  "buildOptions": {
+    "copyToOutput": {
+      "includeFiles": [ "xunit.runner.json" ]
+    }
+  },
+
   "dependencies": {
     "Secullum.Validation": "*",
     "Microsoft.EntityFrameworkCore": "1.0.0-rc2-final",
