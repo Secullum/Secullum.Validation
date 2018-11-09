@@ -10,11 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Secullum.Validation", "src\Secullum.Validation\Secullum.Validation.xproj", "{C1DC91EB-B7F3-458D-9938-29806B3E6D27}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Secullum.Validation.Tests", "test\Secullum.Validation.Tests\Secullum.Validation.Tests.xproj", "{BCBFDF64-7A9B-44D9-A89B-0AC2F0421E04}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B0B38BF6-BBF9-40AF-A73B-27E71A0E4057}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Secullum.Validation", "src\Secullum.Validation\Secullum.Validation.csproj", "{C1DC91EB-B7F3-458D-9938-29806B3E6D27}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Secullum.Validation.Tests", "test\Secullum.Validation.Tests\Secullum.Validation.Tests.csproj", "{BCBFDF64-7A9B-44D9-A89B-0AC2F0421E04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
