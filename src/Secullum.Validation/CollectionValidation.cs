@@ -154,6 +154,16 @@ namespace Secullum.Validation
             return this;
         }
 
+        public CollectionValidation<T> IsRequired(Expression<Func<T, DateTime?>> expression)
+        {
+            foreach (var validation in validationCollection)
+            {
+                validation.IsRequired(expression);
+            }
+
+            return this;
+        }
+
         public CollectionValidation<T> IsRequired(Expression<Func<T, Guid>> expression)
         {
             foreach (var validation in validationCollection)

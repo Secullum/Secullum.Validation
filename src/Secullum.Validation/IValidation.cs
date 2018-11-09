@@ -20,6 +20,7 @@ namespace Secullum.Validation
         TValidation IsRequired(Expression<Func<TTarget, int>> expression);
         TValidation IsRequired(Expression<Func<TTarget, int?>> expression);
         TValidation IsRequired(Expression<Func<TTarget, DateTime>> expression);
+        TValidation IsRequired(Expression<Func<TTarget, DateTime?>> expression);
         TValidation IsRequired(Expression<Func<TTarget, Guid>> expression);
         TValidation IsRequired(Expression<Func<TTarget, Guid?>> expression);
         TValidation HasMaxLength(Expression<Func<TTarget, string>> expression, int maxLength);

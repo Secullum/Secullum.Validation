@@ -84,6 +84,19 @@ namespace Secullum.Validation.Tests
         }
 
         [Fact]
+        public void IsRequired_GivenNullDateTime_ReturnError()
+        {
+            var person = new Person() { Death = null };
+
+            var errors = new Validation<Person>(person)
+                .IsRequired(x => x.Death)
+                .ToList();
+
+            Assert.Equal(1, errors.Count);
+            Assert.Equal("Death", errors[0].Property);
+        }
+
+        [Fact]
         public void IsRequired_GivenInvalidExpression_ThrowsException()
         {
             var person = new Person();
