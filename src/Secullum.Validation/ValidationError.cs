@@ -16,9 +16,9 @@
             {
                 if (CamelCase)
                 {
-                    _property = value != null
-                        ? value.Substring(0, 1).ToLower() + value.Substring(1)
-                        : null;
+                    _property = string.IsNullOrEmpty(value) 
+                        ? null
+                        : value.Substring(0, 1).ToLower() + value.Substring(1);
                 }
                 else
                 {
