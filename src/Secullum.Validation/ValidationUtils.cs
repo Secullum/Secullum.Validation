@@ -66,13 +66,13 @@ namespace Secullum.Validation
             {
                 return false;
             }
-            
+
             // Test sequences like "99999999999"
             if (value.ToCharArray().All(x => x == value[0]))
             {
                 return false;
             }
-            
+
             int sum = 0, mod;
 
             var cnpjTemp = value.Substring(0, 12);
@@ -110,12 +110,12 @@ namespace Secullum.Validation
 
         public static bool IsPis(string value)
         {
-            var multiplier = new int[10] { 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
-            var sum = 0; 
+            var multiplier = new int[11] { 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+            var sum = 0;
             int mod;
             int auxParse = 0;
 
-            value = value.Replace("-", "").Replace(".", "").PadLeft(11, '0');
+            value = value.Replace("-", "").Replace(".", "").PadLeft(12, '0');
 
             // Test sequences of 0
             if (value.Replace("0", "").Trim().Length == 0)
@@ -123,9 +123,10 @@ namespace Secullum.Validation
                 return false;
             }
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 11; i++)
             {
-                if (!int.TryParse(value[i].ToString(), out auxParse)) {
+                if (!int.TryParse(value[i].ToString(), out auxParse))
+                {
                     return false;
                 }
 
