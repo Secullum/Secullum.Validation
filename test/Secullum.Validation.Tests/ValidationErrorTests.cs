@@ -29,5 +29,18 @@ namespace Secullum.Validation.Tests
             // Assert
             Assert.Equal("name", error.Property);
         }
+
+        [Fact]
+        public void ValidationError_WithData_GivenDataByProperty_SetIt()
+        {
+            // Arrange
+            var data = new { Id = 0, Name = "John" };
+
+            // Act
+            var error = new ValidationError("Name", "Invalid name.", data);
+
+            // Assert
+            Assert.Equal(data, error.Data);
+        }
     }
 }

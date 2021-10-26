@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>Secullum.Validation</Description>
     <AssemblyTitle>Secullum.Validation</AssemblyTitle>
-    <VersionPrefix>0.1.9</VersionPrefix>
+    <VersionPrefix>0.1.10</VersionPrefix>
     <TargetFrameworks>net451;netstandard1.5</TargetFrameworks>
     <AssemblyName>Secullum.Validation</AssemblyName>
     <PackageId>Secullum.Validation</PackageId>

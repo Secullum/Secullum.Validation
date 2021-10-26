@@ -16,7 +16,7 @@
             {
                 if (CamelCase)
                 {
-                    _property = string.IsNullOrEmpty(value) 
+                    _property = string.IsNullOrEmpty(value)
                         ? null
                         : value.Substring(0, 1).ToLower() + value.Substring(1);
                 }
@@ -29,10 +29,19 @@
 
         public string Message { get; set; }
 
+        public object Data { get; set; }
+
         public ValidationError(string property, string message)
         {
             Property = property;
             Message = message;
+        }
+
+        public ValidationError(string property, string message, object data)
+        {
+            Property = property;
+            Message = message;
+            Data = data;
         }
     }
 }
