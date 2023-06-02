@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Secullum.Validation
 {
-    internal static class ValidationUtils
+    public static class ValidationUtils
     {
         public static bool IsCpf(string value)
         {
