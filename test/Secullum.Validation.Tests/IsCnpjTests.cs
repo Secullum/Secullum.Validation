@@ -10,6 +10,8 @@ namespace Secullum.Validation.Tests
         [InlineData("")]
         [InlineData("99.582.412/0001-44")]
         [InlineData("99582412000144")]
+        [InlineData("AB.CDE.FGH/0001-95")]
+        [InlineData("ABCDEFGH000195")]
         public void IsCnpj_GivenValidField_DontReturnErrors(string cnpj)
         {
             var person = new Person() { Cnpj = cnpj };
@@ -30,6 +32,8 @@ namespace Secullum.Validation.Tests
         [InlineData("99999999999999")]
         [InlineData("23458023475545")]
         [InlineData("23458023475234805384")]
+        [InlineData("AB.CDE.FGH/0001-00")]
+        [InlineData("!2.345.678/0001-00")]
         [InlineData("              ")]
         public void IsCnpj_GivenInvalidField_ReturnError(string cnpj)
         {
@@ -42,12 +46,12 @@ namespace Secullum.Validation.Tests
             Assert.Equal(1, errors.Count);
             Assert.Equal("Cnpj", errors[0].Property);
         }
-        
+
         [Fact]
         public void IsCnpj_GivenInvalidExpression_ThrowsException()
         {
             var person = new Person();
-            
+
             Assert.Throws<ArgumentException>("expression", () =>
             {
                 var erros = new Validation<Person>(person)
