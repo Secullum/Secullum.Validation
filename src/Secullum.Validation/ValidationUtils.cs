@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace Secullum.Validation
 {
@@ -60,21 +57,35 @@ namespace Secullum.Validation
 
         public static bool IsCnpj(string value)
         {
-            value = value.NumbersOnly();
+            value = value
+                .Replace(".", "")
+                .Replace("/", "")
+                .Replace("-", "")
+                .Trim()
+                .ToUpper();
 
             if (value.Length != 14)
             {
                 return false;
             }
 
-            // Test sequences like "99999999999"
-            if (value.ToCharArray().All(x => x == value[0]))
+            if (value.ToCharArray().Any(c => !char.IsDigit(c) && (c < 'A' || c > 'Z')))
             {
                 return false;
             }
 
-            int sum = 0, mod;
+            // Sequences with all the same characters are invalid only for numeric CNPJ
+            var isAlfanumerico = value.ToCharArray().Any(char.IsLetter);
+            if (!isAlfanumerico && value.ToCharArray().All(x => x == value[0]))
+            {
+                return false;
+            }
 
+            // According to the Federal Revenue specification, the numerical value of each character
+            // is calculated by subtracting 48 (ASCII from '0'): digits 0–9, letters A=17...Z=42
+            int CharValue(char c) => c - 48;
+
+            int sum = 0, mod;
             var cnpjTemp = value.Substring(0, 12);
 
             //get fisrt digit
@@ -82,7 +93,7 @@ namespace Secullum.Validation
 
             for (int i = 0; i < 12; i++)
             {
-                sum += int.Parse(cnpjTemp[i].ToString()) * multiplier1[i];
+                sum += CharValue(cnpjTemp[i]) * multiplier1[i];
             }
 
             mod = sum % 11;
@@ -98,7 +109,7 @@ namespace Secullum.Validation
 
             for (int i = 0; i < 13; i++)
             {
-                sum += int.Parse(cnpjTemp[i].ToString()) * multiplier2[i];
+                sum += CharValue(cnpjTemp[i]) * multiplier2[i];
             }
 
             mod = sum % 11;
