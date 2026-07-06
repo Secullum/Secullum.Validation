@@ -24,7 +24,7 @@ namespace Secullum.Validation.Tests
 
             foreach (var lista in errors)
             {
-                Assert.Equal(0, lista.Count);
+                Assert.Empty(lista);
             }
         }
 
@@ -37,14 +37,14 @@ namespace Secullum.Validation.Tests
             var people = new List<Person>();
 
             people.Add(new Person { Name = name });
-            
+
             var errors = new CollectionValidation<Person>(people)
                 .IsRequired(x => x.Name)
                 .ToList();
 
             foreach (var lista in errors)
             {
-                Assert.Equal(1, lista.Count);
+                Assert.Single(lista);
                 Assert.Equal("Name", lista[0].Property);
             }
         }
@@ -66,7 +66,7 @@ namespace Secullum.Validation.Tests
 
             foreach (var lista in errors)
             {
-                Assert.Equal(0, lista.Count);
+                Assert.Empty(lista);
             }
         }
 
@@ -76,12 +76,12 @@ namespace Secullum.Validation.Tests
             var people = new List<Person>();
 
             people.Add(new Person { Name = "Fernando" });
-            
+
             var errors = new CollectionValidation<Person>(people)
                 .HasMaxLength(x => x.Name, 5)
                 .ToList();
 
-            Assert.Equal(1, errors.Count);
+            Assert.Single(errors);
             Assert.Equal("Name", errors[0][0].Property);
         }
 
@@ -96,7 +96,7 @@ namespace Secullum.Validation.Tests
                 .HasCustomValidation(x => false, "Email", "Preencha o campo Email corretamente")
                 .ToList();
 
-            Assert.Equal(1, errors[0].Count);
+            Assert.Single(errors[0]);
             Assert.Equal("Preencha o campo Email corretamente", errors[0][0].Message);
         }
 
@@ -115,7 +115,7 @@ namespace Secullum.Validation.Tests
                 .IsSmallDateTime(x => x.Birth)
                 .ToList();
 
-            Assert.Equal(0, errors[0].Count);
+            Assert.Empty(errors[0]);
         }
 
     }

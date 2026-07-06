@@ -20,7 +20,7 @@ namespace Secullum.Validation.Tests
                 .IsCnpj(x => x.Cnpj)
                 .ToList();
 
-            Assert.Equal(0, errors.Count);
+            Assert.Empty(errors);
         }
 
         [Theory]
@@ -43,7 +43,7 @@ namespace Secullum.Validation.Tests
                 .IsCnpj(x => x.Cnpj)
                 .ToList();
 
-            Assert.Equal(1, errors.Count);
+            Assert.Single(errors);
             Assert.Equal("Cnpj", errors[0].Property);
         }
 
