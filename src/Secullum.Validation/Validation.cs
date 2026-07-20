@@ -206,7 +206,7 @@ namespace Secullum.Validation
             ThrowIfNotMemberAccessExpression(expression.Body);
 
             var value = expression.Compile()(target);
-            var regex = new Regex(@"^[a-zA-Z0-9_\.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+$");
+            var regex = new Regex(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+$");
             
             if (!string.IsNullOrEmpty(value) && !regex.IsMatch(value))
             {
