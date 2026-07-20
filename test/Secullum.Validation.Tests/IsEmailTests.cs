@@ -10,6 +10,7 @@ namespace Secullum.Validation.Tests
         [InlineData("")]
         [InlineData("fernando@domain.com")]
         [InlineData("fernando@domain.com.br")]
+        [InlineData("fernando+teste@domain.com")]
         public void IsEmail_GivenValidField_DontReturnErrors(string email)
         {
             var person = new Person() { Email = email };
