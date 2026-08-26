@@ -35,7 +35,7 @@ namespace Secullum.Validation
             englishDictionary.Add(StringTypes.HasMaxLengthMessage, "The field {0} must have at most {1} characters.");
             portugueseDictionary.Add(StringTypes.HasMaxLengthMessage, "O campo {0} deve possuir no máximo {1} caracteres.");
             spanishDictionary.Add(StringTypes.HasMaxLengthMessage, "El campo {0} debe poseer máximo {1} caracteres.");
-            
+
             englishDictionary.Add(StringTypes.IsEmailMessage, "{0} invalid.");
             portugueseDictionary.Add(StringTypes.IsEmailMessage, "{0} inválido.");
             spanishDictionary.Add(StringTypes.IsEmailMessage, "{0} no válido.");

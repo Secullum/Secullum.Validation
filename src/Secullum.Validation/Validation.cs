@@ -83,7 +83,7 @@ namespace Secullum.Validation
 
             return this;
         }
-        
+
         public Validation<T> IsRequired(Expression<Func<T, string>> expression)
         {
             ThrowIfNotMemberAccessExpression(expression.Body);
@@ -192,12 +192,12 @@ namespace Secullum.Validation
             }
 
             var value = expression.Compile()(target);
-            
+
             if (value != null && value.Length > maxLength)
             {
                 AddError((MemberExpression)expression.Body, GetString(HasMaxLengthMessage), maxLength);
             }
-            
+
             return this;
         }
 
@@ -207,7 +207,7 @@ namespace Secullum.Validation
 
             var value = expression.Compile()(target);
             var regex = new Regex(@"^[a-zA-Z0-9_\.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+$");
-            
+
             if (!string.IsNullOrEmpty(value) && !regex.IsMatch(value))
             {
                 AddError((MemberExpression)expression.Body, GetString(IsEmailMessage));
@@ -267,7 +267,7 @@ namespace Secullum.Validation
 
             var idProp = typeof(T).GetTypeInfo().GetDeclaredProperty("Id");
             var idValue = idProp.GetValue(target);
-            
+
             // x.Name == "fernando"
             var equalExpression = Expression.Equal(
                 expression.Body,
@@ -292,7 +292,7 @@ namespace Secullum.Validation
             {
                 AddError((MemberExpression)expression.Body, GetString(IsUniqueMessage));
             }
-            
+
             return this;
         }
 
@@ -306,7 +306,7 @@ namespace Secullum.Validation
             {
                 AddError((MemberExpression)expression.Body, GetString(IsCpfMessage));
             }
-            
+
             return this;
         }
 
@@ -485,10 +485,10 @@ namespace Secullum.Validation
             var formatArgsList = new List<object>();
 
             displayTextDictionary.TryGetValue(expression.Member, out propertyDisplayText);
-            
+
             formatArgsList.Add(propertyDisplayText ?? propertyName);
             formatArgsList.AddRange(formatArgs);
-            
+
             errorList.Add(new ValidationError(propertyName, string.Format(message, formatArgsList.ToArray())));
         }
 

@@ -58,7 +58,7 @@ namespace Secullum.Validation.Tests
         {
             SetCurrentThreadCulture(new CultureInfo("pt-BR"));
 
-            var person = new Person() { Zipcode = 42 } ;
+            var person = new Person() { Zipcode = 42 };
 
             var errors = new Validation<Person>(person)
                 .HasDisplayText(x => x.Zipcode, "Zipcode")
@@ -74,7 +74,7 @@ namespace Secullum.Validation.Tests
         {
             SetCurrentThreadCulture(new CultureInfo("pt-BR"));
 
-            var person = new Person() ;
+            var person = new Person();
 
             var errors = new Validation<Person>(person)
                 .HasDisplayText(x => x.Height, "Height")
@@ -84,13 +84,13 @@ namespace Secullum.Validation.Tests
             Assert.Equal("Height", errors[0].Property);
             Assert.Equal($"O campo Height deve ser preenchido com valores entre 100,01 e 250,02.", errors[0].Message);
         }
-        
+
         [Fact]
         public void HasDisplayText_GivenDisplayTextNullableFloatValue_UsesIt()
         {
             SetCurrentThreadCulture(new CultureInfo("pt-BR"));
 
-            var person = new Person() {Weight = 5};
+            var person = new Person() { Weight = 5 };
 
             var errors = new Validation<Person>(person)
                 .HasDisplayText(x => x.Weight, "Weight")

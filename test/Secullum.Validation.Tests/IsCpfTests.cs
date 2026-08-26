@@ -18,7 +18,7 @@ namespace Secullum.Validation.Tests
                 .IsCpf(x => x.Cpf)
                 .ToList();
 
-            Assert.Equal(0, errors.Count);
+            Assert.Empty(errors);
         }
 
         [Theory]
@@ -39,15 +39,15 @@ namespace Secullum.Validation.Tests
                 .IsCpf(x => x.Cpf)
                 .ToList();
 
-            Assert.Equal(1, errors.Count);
+            Assert.Single(errors);
             Assert.Equal("Cpf", errors[0].Property);
         }
-        
+
         [Fact]
         public void IsCpf_GivenInvalidExpression_ThrowsException()
         {
             var person = new Person();
-            
+
             Assert.Throws<ArgumentException>("expression", () =>
             {
                 var erros = new Validation<Person>(person)

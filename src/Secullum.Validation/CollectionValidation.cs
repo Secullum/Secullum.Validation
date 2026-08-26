@@ -9,7 +9,7 @@ namespace Secullum.Validation
     public class CollectionValidation<T> : IValidation<T, CollectionValidation<T>> where T : class
     {
         private ICollection<Validation<T>> validationCollection;
-                
+
         public CollectionValidation(ICollection<T> targetCollection) : this(targetCollection, null)
         {
         }
@@ -23,7 +23,7 @@ namespace Secullum.Validation
                 validationCollection.Add(new Validation<T>(item, dbContext));
             }
         }
-        
+
         public CollectionValidation<T> HasDisplayText(Expression<Func<T, string>> expression, string displayText)
         {
             foreach (var validation in validationCollection)
@@ -140,7 +140,7 @@ namespace Secullum.Validation
             {
                 validation.IsRequired(expression);
             }
- 
+
             return this;
         }
 
@@ -193,7 +193,7 @@ namespace Secullum.Validation
 
             return this;
         }
-        
+
         public CollectionValidation<T> IsEmail(Expression<Func<T, string>> expression)
         {
             foreach (var validation in validationCollection)

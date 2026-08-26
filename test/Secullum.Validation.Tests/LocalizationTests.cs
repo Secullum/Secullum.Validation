@@ -37,7 +37,7 @@ namespace Secullum.Validation.Tests
         public void Localization_GivenSpanishCulture_ReturnsSpanishErrorMessage()
         {
             SetCurrentThreadCulture(new CultureInfo("es-ES"));
-            
+
             var person = new Person();
 
             var errors = new Validation<Person>(person)
