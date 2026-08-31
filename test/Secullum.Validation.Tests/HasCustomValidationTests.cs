@@ -31,7 +31,7 @@ namespace Secullum.Validation.Tests
 
             Assert.Equal("Preencha o campo Email corretamente", errors[0].Message);
         }
-
+        
         [Fact]
         public void HasCustomValidation_GivenTrueCondition_DontReturnErrors()
         {
@@ -41,7 +41,7 @@ namespace Secullum.Validation.Tests
                 .HasCustomValidation(x => true, "Email", "Preencha o campo Email corretamente")
                 .ToList();
 
-            Assert.Empty(errors);
+            Assert.Equal(0, errors.Count);
         }
 
         [Fact]
@@ -53,7 +53,7 @@ namespace Secullum.Validation.Tests
                 .HasCustomValidation(x => !((x.Email == "unknown@domain.net" || x.Id == 1) && x.Age > 0), "Email", "Preencha o campo Email corretamente")
                 .ToList();
 
-            Assert.Single(errors);
+            Assert.Equal(1, errors.Count);
             Assert.Equal("Preencha o campo Email corretamente", errors[0].Message);
         }
     }

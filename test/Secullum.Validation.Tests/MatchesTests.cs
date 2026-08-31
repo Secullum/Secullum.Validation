@@ -18,7 +18,7 @@ namespace Secullum.Validation.Tests
                 .Matches(x => x.Pis, @"^\d+$", "Error {0}")
                 .ToList();
 
-            Assert.Empty(errors);
+            Assert.Equal(0, errors.Count);
         }
 
         [Theory]
@@ -32,7 +32,7 @@ namespace Secullum.Validation.Tests
                 .Matches(x => x.Pis, @"^\d+$", "Error {0}")
                 .ToList();
 
-            Assert.Single(errors);
+            Assert.Equal(1, errors.Count);
             Assert.Equal("Pis", errors[0].Property);
         }
 

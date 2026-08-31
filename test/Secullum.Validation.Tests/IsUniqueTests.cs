@@ -26,7 +26,7 @@ namespace Secullum.Validation.Tests
                 .IsUnique(x => x.Name)
                 .ToList();
 
-            Assert.Empty(errors);
+            Assert.Equal(0, errors.Count);
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace Secullum.Validation.Tests
                 .IsUnique(x => x.Name)
                 .ToList();
 
-            Assert.Empty(errors);
+            Assert.Equal(0, errors.Count);
         }
 
         [Fact]
@@ -50,7 +50,7 @@ namespace Secullum.Validation.Tests
                 .IsUnique(x => x.Name)
                 .ToList();
 
-            Assert.Empty(errors);
+            Assert.Equal(0, errors.Count);
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace Secullum.Validation.Tests
                 .IsUnique(x => x.Age)
                 .ToList();
 
-            Assert.Empty(errors);
+            Assert.Equal(0, errors.Count);
         }
 
         [Fact]
@@ -74,7 +74,7 @@ namespace Secullum.Validation.Tests
                 .IsUnique(x => x.Age)
                 .ToList();
 
-            Assert.Empty(errors);
+            Assert.Equal(0, errors.Count);
         }
 
         [Fact]
@@ -86,7 +86,7 @@ namespace Secullum.Validation.Tests
                 .IsUnique(x => x.Email)
                 .ToList();
 
-            Assert.Empty(errors);
+            Assert.Equal(0, errors.Count);
         }
 
         [Fact]
@@ -98,10 +98,10 @@ namespace Secullum.Validation.Tests
                 .IsUnique(x => x.Name)
                 .ToList();
 
-            Assert.Single(errors);
+            Assert.Equal(1, errors.Count);
             Assert.Equal("Name", errors[0].Property);
         }
-
+        
         [Fact]
         public void IsUnique_GivenInvalidExpression_ThrowsException()
         {

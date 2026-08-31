@@ -18,7 +18,7 @@ namespace Secullum.Validation.Tests
                 .IsHour(x => x.Hour)
                 .ToList();
 
-            Assert.Empty(errors);
+            Assert.Equal(0, errors.Count);
         }
 
         [Theory]
@@ -36,7 +36,7 @@ namespace Secullum.Validation.Tests
                 .IsHour(x => x.Hour)
                 .ToList();
 
-            Assert.Single(errors);
+            Assert.Equal(1, errors.Count);
             Assert.Equal("Hour", errors[0].Property);
         }
 

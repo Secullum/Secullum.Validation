@@ -18,7 +18,7 @@ namespace Secullum.Validation.Tests
                 .IsEmail(x => x.Email)
                 .ToList();
 
-            Assert.Empty(errors);
+            Assert.Equal(0, errors.Count);
         }
 
         [Theory]
@@ -34,15 +34,15 @@ namespace Secullum.Validation.Tests
                 .IsEmail(x => x.Email)
                 .ToList();
 
-            Assert.Single(errors);
+            Assert.Equal(1, errors.Count);
             Assert.Equal("Email", errors[0].Property);
         }
-
+        
         [Fact]
         public void IsEmail_GivenInvalidExpression_ThrowsException()
         {
             var person = new Person();
-
+            
             Assert.Throws<ArgumentException>("expression", () =>
             {
                 var erros = new Validation<Person>(person)
