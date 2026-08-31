@@ -18,7 +18,7 @@ namespace Secullum.Validation.Tests
                 .HasMaxLength(x => x.Name, maxLength)
                 .ToList();
 
-            Assert.Empty(errors);
+            Assert.Equal(0, errors.Count);
         }
 
         [Fact]
@@ -30,10 +30,10 @@ namespace Secullum.Validation.Tests
                 .HasMaxLength(x => x.Name, 5)
                 .ToList();
 
-            Assert.Single(errors);
+            Assert.Equal(1, errors.Count);
             Assert.Equal("Name", errors[0].Property);
         }
-
+        
         [Fact]
         public void HasMaxLength_GivenInvalidExpression_ThrowsException()
         {
@@ -46,7 +46,7 @@ namespace Secullum.Validation.Tests
                     .ToList();
             });
         }
-
+        
         [Theory]
         [InlineData(0)]
         [InlineData(-1)]

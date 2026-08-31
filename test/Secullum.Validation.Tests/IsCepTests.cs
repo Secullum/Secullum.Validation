@@ -18,7 +18,7 @@ namespace Secullum.Validation.Tests
                 .IsCep(x => x.Cep)
                 .ToList();
 
-            Assert.Empty(errors);
+            Assert.Equal(0, errors.Count);
         }
 
         [Theory]
@@ -35,7 +35,7 @@ namespace Secullum.Validation.Tests
                 .IsCep(x => x.Cep)
                 .ToList();
 
-            Assert.Single(errors);
+            Assert.Equal(1, errors.Count);
             Assert.Equal("Cep", errors[0].Property);
         }
 

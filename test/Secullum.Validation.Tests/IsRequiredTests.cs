@@ -14,7 +14,7 @@ namespace Secullum.Validation.Tests
                 .IsRequired(x => x.Name)
                 .ToList();
 
-            Assert.Empty(errors);
+            Assert.Equal(0, errors.Count);
         }
 
         [Theory]
@@ -29,7 +29,7 @@ namespace Secullum.Validation.Tests
                 .IsRequired(x => x.Name)
                 .ToList();
 
-            Assert.Single(errors);
+            Assert.Equal(1, errors.Count);
             Assert.Equal("Name", errors[0].Property);
         }
 
@@ -42,7 +42,7 @@ namespace Secullum.Validation.Tests
                 .IsRequired(x => x.Age)
                 .ToList();
 
-            Assert.Empty(errors);
+            Assert.Equal(0, errors.Count);
         }
 
         [Fact]
@@ -54,7 +54,7 @@ namespace Secullum.Validation.Tests
                 .IsRequired(x => x.Age)
                 .ToList();
 
-            Assert.Single(errors);
+            Assert.Equal(1, errors.Count);
             Assert.Equal("Age", errors[0].Property);
         }
 
@@ -67,7 +67,7 @@ namespace Secullum.Validation.Tests
                 .IsRequired(x => x.Birth)
                 .ToList();
 
-            Assert.Empty(errors);
+            Assert.Equal(0, errors.Count);
         }
 
         [Fact]
@@ -79,7 +79,7 @@ namespace Secullum.Validation.Tests
                 .IsRequired(x => x.Birth)
                 .ToList();
 
-            Assert.Single(errors);
+            Assert.Equal(1, errors.Count);
             Assert.Equal("Birth", errors[0].Property);
         }
 
@@ -92,7 +92,7 @@ namespace Secullum.Validation.Tests
                 .IsRequired(x => x.Death)
                 .ToList();
 
-            Assert.Single(errors);
+            Assert.Equal(1, errors.Count);
             Assert.Equal("Death", errors[0].Property);
         }
 
@@ -100,7 +100,7 @@ namespace Secullum.Validation.Tests
         public void IsRequired_GivenInvalidExpression_ThrowsException()
         {
             var person = new Person();
-
+            
             Assert.Throws<ArgumentException>("expression", () =>
             {
                 var erros = new Validation<Person>(person)
@@ -118,7 +118,7 @@ namespace Secullum.Validation.Tests
                 .IsRequired(x => x.Zipcode)
                 .ToList();
 
-            Assert.Single(errors);
+            Assert.Equal(1, errors.Count);
             Assert.Equal("Zipcode", errors[0].Property);
         }
     }

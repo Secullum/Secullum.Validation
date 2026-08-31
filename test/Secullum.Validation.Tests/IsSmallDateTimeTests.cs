@@ -18,7 +18,7 @@ namespace Secullum.Validation.Tests
                 .IsSmallDateTime(x => x.Birth)
                 .ToList();
 
-            Assert.Empty(errors);
+            Assert.Equal(0, errors.Count);
         }
 
         [Theory]
@@ -35,7 +35,7 @@ namespace Secullum.Validation.Tests
                             .IsSmallDateTime(x => x.Birth)
                             .ToList();
 
-            Assert.Single(errors);
+            Assert.Equal(1, errors.Count);
             Assert.Equal("Birth", errors[0].Property);
         }
 
@@ -52,7 +52,7 @@ namespace Secullum.Validation.Tests
                 .IsSmallDateTime(x => x.Death)
                 .ToList();
 
-            Assert.Empty(errors);
+            Assert.Equal(0, errors.Count);
         }
 
         [Theory]
@@ -69,7 +69,7 @@ namespace Secullum.Validation.Tests
                             .IsSmallDateTime(x => x.Death)
                             .ToList();
 
-            Assert.Single(errors);
+            Assert.Equal(1, errors.Count);
             Assert.Equal("Death", errors[0].Property);
         }
 
@@ -79,10 +79,10 @@ namespace Secullum.Validation.Tests
             var person = new Person();
 
             var errors = new Validation<Person>(person)
-                            .IsSmallDateTime(x => x.Birth)
+                            .IsSmallDateTime(x => x.Birth ) 
                             .ToList();
 
-            Assert.Single(errors);
+            Assert.Equal(1, errors.Count);
             Assert.Equal("Birth", errors[0].Property);
         }
 
@@ -95,7 +95,7 @@ namespace Secullum.Validation.Tests
                             .IsSmallDateTime(x => x.Death)
                             .ToList();
 
-            Assert.Empty(errors);
+            Assert.Equal(0, errors.Count);
         }
     }
 }

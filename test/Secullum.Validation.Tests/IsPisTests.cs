@@ -18,7 +18,7 @@ namespace Secullum.Validation.Tests
                 .IsPis(x => x.Pis)
                 .ToList();
 
-            Assert.Empty(errors);
+            Assert.Equal(0, errors.Count);
         }
 
         [Theory]
@@ -32,6 +32,7 @@ namespace Secullum.Validation.Tests
         [InlineData("           ")]
         [InlineData("²³££³²¢!@#!@##")]
         [InlineData("¬¬¬¬¬¬¬¬¬¬¬")]
+        [InlineData("99999999999")]
         public void IsPis_GivenInvalidField_ReturnError(string pis)
         {
             var person = new Person() { Pis = pis };
@@ -40,7 +41,7 @@ namespace Secullum.Validation.Tests
                 .IsPis(x => x.Pis)
                 .ToList();
 
-            Assert.Single(errors);
+            Assert.Equal(1, errors.Count);
             Assert.Equal("Pis", errors[0].Property);
         }
 
